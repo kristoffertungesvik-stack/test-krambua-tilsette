@@ -1,12 +1,13 @@
 "use client";
 
-import { ChartBar, ListChecks, ChatCircleText, BookOpen, Users } from "@phosphor-icons/react";
+import { ChartBar, ListChecks, ChatCircleText, BookOpen, Users, SignOut } from "@phosphor-icons/react";
 import { useStore } from "@/lib/store";
+import { BASE_PATH } from "@/lib/base-path";
 
 export type MgrView = "oversikt" | "sjekklister" | "beskjedar" | "handbok" | "tilsette";
 
 export default function Sidebar({ view, onChange }: { view: MgrView; onChange: (v: MgrView) => void }) {
-  const { t, currentUser } = useStore();
+  const { t, currentUser, logout } = useStore();
   if (!currentUser) return null;
 
   const items: { id: MgrView; label: string; Icon: typeof ChartBar }[] = [
@@ -20,9 +21,8 @@ export default function Sidebar({ view, onChange }: { view: MgrView; onChange: (
   return (
     <div className="mgr-sidebar">
       <div className="mgr-brand">
-        <span className="mark">
-          <span />
-        </span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={`${BASE_PATH}/brand/mark.png`} alt="Krambua" style={{ height: 22, width: "auto" }} />
         <span className="label">Krambua</span>
       </div>
       <div className="mgr-nav">
@@ -33,8 +33,13 @@ export default function Sidebar({ view, onChange }: { view: MgrView; onChange: (
           </button>
         ))}
       </div>
-      <div className="mgr-footer-card">
-        {t("mgr.loggedInAs")} <strong>{currentUser.name}</strong> · {currentUser.roleLabel.toLowerCase()}
+      <div className="mgr-footer-row">
+        <div className="mgr-footer-card">
+          {t("mgr.loggedInAs")} <strong>{currentUser.name}</strong> · {currentUser.roleLabel.toLowerCase()}
+        </div>
+        <button className="icon-btn" onClick={logout} aria-label={t("header.logout")} title={t("header.logout")}>
+          <SignOut size={16} />
+        </button>
       </div>
     </div>
   );
