@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useStore } from "@/lib/store";
 import { DEMO_PASSWORD } from "@/lib/mock-data";
 import Splash from "@/components/Splash";
-import type { Lang } from "@/lib/i18n";
+import { greeting, type Lang } from "@/lib/i18n";
 import { BASE_PATH } from "@/lib/base-path";
 
 export default function LoginPage() {
@@ -34,8 +34,7 @@ export default function LoginPage() {
     <form className="login-screen" onSubmit={handleSubmit}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={`${BASE_PATH}/brand/wordmark.png`} alt="Krambua Bensin &amp; Storkiosk" className="login-logo" />
-      <div className="login-kicker">{t("login.kicker")}</div>
-      <h1 className="login-heading">{t("login.heading")}</h1>
+      <h1 className="login-heading">{greeting(lang)}</h1>
       <p className="login-sub">{t("login.sub")}</p>
 
       <div className="login-fields">
