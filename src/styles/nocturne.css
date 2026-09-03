@@ -15,7 +15,7 @@
   --color-surface-raised: #292b31; /* inset/raised surface — inputs inside cards, one step darker */
   --color-chrome: #1b1d2b; /* sidebar / tab-bar ground */
   --color-text: #e9e9ed;
-  --color-accent: #9184d9;
+  --color-accent: #e44451; /* brand red, matched to the Krambua K-mark */
   --color-accent-2: #a7a1db;
   --color-divider: color-mix(in srgb, #e9e9ed 16%, transparent);
 
@@ -31,15 +31,15 @@
   --color-neutral-800: #3f424d;
   --color-neutral-900: #292b31;
 
-  --color-accent-100: #f5f4ff;
-  --color-accent-200: #e7e5fe;
-  --color-accent-300: #d2cefd;
-  --color-accent-400: #b5abfc;
-  --color-accent-500: #968ae0;
-  --color-accent-600: #796cbf;
-  --color-accent-700: #5d5294;
-  --color-accent-800: #423a6a;
-  --color-accent-900: #2b2741;
+  --color-accent-100: #f8f1f2;
+  --color-accent-200: #f0d1d4;
+  --color-accent-300: #eba2a9;
+  --color-accent-400: #e7747e;
+  --color-accent-500: #d02533;
+  --color-accent-600: #a8242f;
+  --color-accent-700: #7a1f26;
+  --color-accent-800: #4f171c;
+  --color-accent-900: #341416;
 
   --color-accent-2-100: #f5f4ff;
   --color-accent-2-200: #e7e5fe;
