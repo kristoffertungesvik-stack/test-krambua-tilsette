@@ -3,14 +3,9 @@
  * handoff README fairly closely, reshaped into normalized records so a
  * real API/DB layer can slot in later without reshaping the UI.
  *
- * "Data the server must own" (per the handoff): users & credentials,
- * checklist templates and dated instances per person, task completions
- * (who + when), deviation notes, posts and read receipts, chat threads
- * and messages, handbook articles and PDFs. In this scaffold all of it
- * lives in DataStore (lib/store.tsx), mocked with localStorage — replace
- * that layer with real API calls when wiring a backend.
+ * IMPORTANT: This GitHub Pages version still stores all data in localStorage.
+ * Passwords are therefore mock/demo credentials, not production auth.
  */
-
 import type { Lang } from "./i18n";
 
 export type Role = "tilsett" | "leiar";
@@ -22,8 +17,10 @@ export interface StaffUser {
   name: string;
   initials: string;
   role: Role;
-  roleLabel: string; // e.g. "Dagleg leiar", "Tilsett"
-  shift?: string; // e.g. "06.30–14.00"
+  roleLabel: string;
+  shift?: string;
+  email?: string;
+  phone?: string;
 }
 
 export interface ChecklistTask {
@@ -31,15 +28,15 @@ export interface ChecklistTask {
   title: string;
   hint?: string;
   done: boolean;
-  doneAt?: string; // "07.24"
-  doneBy?: string; // display name
+  doneAt?: string;
+  doneBy?: string;
   note?: string;
 }
 
 export interface ChecklistInstance {
   id: string;
   personId: string;
-  dayIndex: number; // 0 = Monday … 6 = Sunday, within the current week
+  dayIndex: number;
   name: string;
   madeBy: string;
   tasks: ChecklistTask[];
@@ -50,8 +47,8 @@ export interface Post {
   authorId: string;
   title: string;
   body: string;
-  createdAt: string; // ISO
-  readBy: string[]; // user ids
+  createdAt: string;
+  readBy: string[];
 }
 
 export type ThreadKind = "group" | "dm";
@@ -60,7 +57,7 @@ export interface Thread {
   id: string;
   kind: ThreadKind;
   name: string;
-  sub: string; // "7 personar" or a role label
+  sub: string;
   participantIds: string[];
 }
 
@@ -69,21 +66,28 @@ export interface Message {
   threadId: string;
   senderId: string;
   text: string;
-  createdAt: string; // ISO
+  createdAt: string;
 }
 
 export type HandbookGroup = "rutinar" | "reglar" | "skjema";
 
+export interface HandbookAttachment {
+  name: string;
+  type: string;
+  dataUrl: string;
+}
+
 export interface HandbookArticle {
   id: string;
   group: HandbookGroup;
-  badge: string; // "01", "HMS", "PDF"
+  badge: string;
   title: string;
   sub: string;
-  updatedAt: string; // "14. august"
+  updatedAt: string;
   updatedBy: string;
   readMinutes: number;
   steps: string[];
+  attachment?: HandbookAttachment;
 }
 
 export interface AppData {

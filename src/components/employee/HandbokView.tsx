@@ -4,7 +4,10 @@ import { MagnifyingGlass, CaretRight, CaretLeft } from "@phosphor-icons/react";
 import { useStore } from "@/lib/store";
 import type { HandbookGroup } from "@/lib/types";
 
-const GROUP_ORDER: { id: HandbookGroup; labelKey: "hb.group.rutinar" | "hb.group.reglar" | "hb.group.skjema" }[] = [
+const GROUP_ORDER: {
+  id: HandbookGroup;
+  labelKey: "hb.group.rutinar" | "hb.group.reglar" | "hb.group.skjema";
+}[] = [
   { id: "rutinar", labelKey: "hb.group.rutinar" },
   { id: "reglar", labelKey: "hb.group.reglar" },
   { id: "skjema", labelKey: "hb.group.skjema" },
@@ -21,12 +24,17 @@ export function HandbokIndex({
 }) {
   const { t, data } = useStore();
   const q = query.trim().toLowerCase();
-  const matches = (title: string, sub: string) =>
-    !q || title.toLowerCase().includes(q) || sub.toLowerCase().includes(q);
+  const matches = (title: string, sub: string, steps: string[]) =>
+    !q ||
+    title.toLowerCase().includes(q) ||
+    sub.toLowerCase().includes(q) ||
+    steps.some((step) => step.toLowerCase().includes(q));
 
   const groups = GROUP_ORDER.map((g) => ({
     ...g,
-    items: data.handbook.filter((a) => a.group === g.id && matches(a.title, a.sub)),
+    items: data.handbook.filter(
+      (a) => a.group === g.id && matches(a.title, a.sub, a.steps)
+    ),
   })).filter((g) => g.items.length > 0);
 
   return (
@@ -39,7 +47,6 @@ export function HandbokIndex({
           onChange={(e) => onQueryChange(e.target.value)}
         />
       </div>
-
       {groups.length === 0 ? (
         <div className="empty-hint" style={{ padding: "20px 0" }}>
           {t("hb.empty").replace(".", "")} på «{query}». {t("hb.empty.hint")}
@@ -90,20 +97,37 @@ export function HandbokArticleView({
         {article.group === "rutinar" ? "Rutine" : article.badge} {article.badge}
       </div>
       <h1>{article.title}</h1>
+      {article.sub && <div className="muted-62">{article.sub}</div>}
       <div className="meta">
-        {t("hb.article.updatedBy")} {article.updatedAt} av {article.updatedBy} · {t("hb.article.readTime")} {article.readMinutes}{" "}
-        {t("hb.article.min")}
+        {t("hb.article.updatedBy")} {article.updatedAt} av {article.updatedBy} ·{" "}
+        {t("hb.article.readTime")} {article.readMinutes} {t("hb.article.min")}
       </div>
-      <div className="hb-steps">
-        {article.steps.map((step, i) => (
-          <div className="hb-step" key={i}>
-            <span className="hb-step-num">{i + 1}</span>
-            <span className="hb-step-text">{step}</span>
-          </div>
-        ))}
-      </div>
+
+      {article.steps.length > 0 && (
+        <div className="hb-steps">
+          {article.steps.map((step, i) => (
+            <div className="hb-step" key={i}>
+              <span className="hb-step-num">{i + 1}</span>
+              <span className="hb-step-text">{step}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
       <div className="hb-article-actions">
-        <button className="btn btn-secondary">{t("hb.article.downloadPdf")}</button>
+        {article.attachment ? (
+          <a
+            className="btn btn-secondary"
+            href={article.attachment.dataUrl}
+            download={article.attachment.name}
+          >
+            Last ned {article.attachment.name}
+          </a>
+        ) : (
+          <button className="btn btn-secondary" disabled>
+            Ingen vedlegg
+          </button>
+        )}
         <button className="btn btn-primary" onClick={onReportDeviation}>
           {t("hb.article.reportDeviation")}
         </button>
