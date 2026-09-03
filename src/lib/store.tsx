@@ -1,11 +1,25 @@
 "use client";
+
 /**
  * DataStore — a mock stand-in for the real backend.
  *
- * This version adds manager-side editing of staff and handbook content.
- * Everything is still saved in this browser's localStorage. It is suitable
- * for testing the UI, but not for real multi-device staff administration.
+ * Everything in here (users & credentials, checklist instances, task
+ * completions, deviation notes, posts + read receipts, chat threads &
+ * messages, handbook articles) is exactly what the handoff README lists
+ * under "Data the server must own". For this scaffold it lives in
+ * localStorage instead of a database, and every action below is
+ * synchronous instead of an API call — but the shape of each action
+ * (login, toggleTask, sendMessage, savePlan, …) is what a real API client
+ * should expose, so swapping this provider for one backed by fetch/
+ * websockets shouldn't change any component that calls useStore().
+ *
+ * Not simulated here, because it needs a real server to mean anything:
+ * hashed passwords (the mock stores plaintext demo passwords), realtime
+ * push between devices (the manager's live view would need a
+ * websocket/poll subscription), and access control (any mock user can
+ * currently call any action).
  */
+
 import {
   createContext,
   useCallback,
@@ -18,12 +32,7 @@ import {
 import type { Lang } from "./i18n";
 import { translate, type StringId } from "./i18n";
 import { buildSeed } from "./mock-data";
-import type {
-  AppData,
-  ChecklistInstance,
-  HandbookArticle,
-  StaffUser,
-} from "./types";
+import type { AppData, ChecklistInstance, StaffUser } from "./types";
 
 const DATA_KEY = "krambua-data-v1";
 const SESSION_KEY = "krambua-session-v1";
@@ -69,9 +78,7 @@ interface StoreValue {
     editListId?: string
   ) => void;
   resetPassword: (userId: string) => string;
-  saveUser: (user: StaffUser) => void;
-  saveHandbookArticle: (article: HandbookArticle) => void;
-  deleteHandbookArticle: (articleId: string) => void;
+  deleteUser: (userId: string) => void;
 }
 
 const StoreContext = createContext<StoreValue | null>(null);
@@ -108,9 +115,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const login = useCallback(
     (username: string, password: string) => {
       const match = data.users.find(
-        (u) =>
-          u.username.toLowerCase() === username.trim().toLowerCase() &&
-          u.password === password
+        (u) => u.username.toLowerCase() === username.trim().toLowerCase() && u.password === password
       );
       if (!match) return false;
       setUserId(match.id);
@@ -150,26 +155,21 @@ export function DataProvider({ children }: { children: ReactNode }) {
     [currentUser]
   );
 
-  const setDeviationNote = useCallback(
-    (listId: string, taskId: string, text: string) => {
-      const trimmed = text.trim();
-      setData((prev) => ({
-        ...prev,
-        lists: prev.lists.map((list) => {
-          if (list.id !== listId) return list;
-          return {
-            ...list,
-            tasks: list.tasks.map((task) =>
-              task.id === taskId
-                ? { ...task, note: trimmed ? trimmed : undefined }
-                : task
-            ),
-          };
-        }),
-      }));
-    },
-    []
-  );
+  const setDeviationNote = useCallback((listId: string, taskId: string, text: string) => {
+    const trimmed = text.trim();
+    setData((prev) => ({
+      ...prev,
+      lists: prev.lists.map((list) => {
+        if (list.id !== listId) return list;
+        return {
+          ...list,
+          tasks: list.tasks.map((task) =>
+            task.id === taskId ? { ...task, note: trimmed ? trimmed : undefined } : task
+          ),
+        };
+      }),
+    }));
+  }, []);
 
   const sendMessage = useCallback(
     (threadId: string, text: string) => {
@@ -237,12 +237,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
     ) => {
       if (!currentUser) return;
       setData((prev) => {
-        const withoutOld = editListId
-          ? prev.lists.filter((l) => l.id !== editListId)
-          : prev.lists;
-        const filtered = withoutOld.filter(
-          (l) => !(l.personId === personId && l.dayIndex === dayIndex)
-        );
+        const withoutOld = editListId ? prev.lists.filter((l) => l.id !== editListId) : prev.lists;
+        const filtered = withoutOld.filter((l) => !(l.personId === personId && l.dayIndex === dayIndex));
         if (plan.tasks.length === 0) return { ...prev, lists: filtered };
         const newList: ChecklistInstance = {
           id: editListId ?? `l-${personId}-${dayIndex}-${Date.now()}`,
@@ -250,11 +246,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
           dayIndex,
           name: plan.name,
           madeBy: currentUser.name,
-          tasks: plan.tasks.map((title, i) => ({
-            id: `t${i + 1}`,
-            title,
-            done: false,
-          })),
+          tasks: plan.tasks.map((title, i) => ({ id: `t${i + 1}`, title, done: false })),
         };
         return { ...prev, lists: [...filtered, newList] };
       });
@@ -266,53 +258,30 @@ export function DataProvider({ children }: { children: ReactNode }) {
     const next = Math.random().toString(36).slice(2, 10);
     setData((prev) => ({
       ...prev,
-      users: prev.users.map((u) =>
-        u.id === userId2 ? { ...u, password: next } : u
-      ),
+      users: prev.users.map((u) => (u.id === userId2 ? { ...u, password: next } : u)),
     }));
     return next;
   }, []);
 
-  const saveUser = useCallback((user: StaffUser) => {
+  const deleteUser = useCallback((userId2: string) => {
     setData((prev) => {
-      const exists = prev.users.some((u) => u.id === user.id);
-      const users = exists
-        ? prev.users.map((u) => (u.id === user.id ? user : u))
-        : [...prev.users, user];
-
-      const threads = prev.threads.map((thread) => {
-        if (thread.id !== "th-alle") return thread;
-        const participantIds = thread.participantIds.includes(user.id)
-          ? thread.participantIds
-          : [...thread.participantIds, user.id];
-        return {
-          ...thread,
-          participantIds,
-          sub: `${participantIds.length} personar`,
-        };
-      });
-
-      return { ...prev, users, threads };
-    });
-  }, []);
-
-  const saveHandbookArticle = useCallback((article: HandbookArticle) => {
-    setData((prev) => {
-      const exists = prev.handbook.some((a) => a.id === article.id);
+      const dmThreadIds = prev.threads
+        .filter((th) => th.kind === "dm" && th.participantIds.includes(userId2))
+        .map((th) => th.id);
       return {
         ...prev,
-        handbook: exists
-          ? prev.handbook.map((a) => (a.id === article.id ? article : a))
-          : [article, ...prev.handbook],
+        users: prev.users.filter((u) => u.id !== userId2),
+        // Their checklist instances go with them; other people's don't reference this user.
+        lists: prev.lists.filter((l) => l.personId !== userId2),
+        // Drop DM threads with the deleted user entirely; just remove them from group threads.
+        threads: prev.threads
+          .filter((th) => !dmThreadIds.includes(th.id))
+          .map((th) => ({ ...th, participantIds: th.participantIds.filter((id) => id !== userId2) })),
+        messages: prev.messages.filter((m) => !dmThreadIds.includes(m.threadId)),
+        // Posts they wrote stay (manager history); just drop their read receipts.
+        posts: prev.posts.map((p) => ({ ...p, readBy: p.readBy.filter((id) => id !== userId2) })),
       };
     });
-  }, []);
-
-  const deleteHandbookArticle = useCallback((articleId: string) => {
-    setData((prev) => ({
-      ...prev,
-      handbook: prev.handbook.filter((a) => a.id !== articleId),
-    }));
   }, []);
 
   const value: StoreValue = {
@@ -331,9 +300,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
     markPostRead,
     savePlan,
     resetPassword,
-    saveUser,
-    saveHandbookArticle,
-    deleteHandbookArticle,
+    deleteUser,
   };
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
@@ -347,7 +314,5 @@ export function useStore(): StoreValue {
 
 function formatNowTime(): string {
   const d = new Date();
-  return `${String(d.getHours()).padStart(2, "0")}.${String(
-    d.getMinutes()
-  ).padStart(2, "0")}`;
+  return `${String(d.getHours()).padStart(2, "0")}.${String(d.getMinutes()).padStart(2, "0")}`;
 }

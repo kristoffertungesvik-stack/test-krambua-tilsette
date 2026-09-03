@@ -143,6 +143,12 @@ export const strings = {
   // — tilsette —
   "til.resetPassword": { nn: "Nullstill passord", nb: "Nullstill passord" },
   "til.resetPassword.done": { nn: "Nytt eingongspassord sendt.", nb: "Nytt engangspassord sendt." },
+  "til.delete": { nn: "Slett", nb: "Slett" },
+  "til.delete.confirm": { nn: "Slette denne personen?", nb: "Slette denne personen?" },
+  "til.delete.yes": { nn: "Ja, slett", nb: "Ja, slett" },
+  "til.delete.no": { nn: "Avbryt", nb: "Avbryt" },
+  "til.delete.done": { nn: "Tilsett sletta.", nb: "Ansatt slettet." },
+  "til.empty": { nn: "Ingen tilsette registrert.", nb: "Ingen ansatte registrert." },
 } as const;
 
 export type StringId = keyof typeof strings;
