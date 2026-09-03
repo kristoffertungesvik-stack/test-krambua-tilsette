@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="stylesheet" href="_ds/nocturne-e7b8cdb4-d320-4def-88ce-409266d03c67/styles.css"><script src="_ds/nocturne-e7b8cdb4-d320-4def-88ce-409266d03c67/_ds_bundle.js"></script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"><style>
+body{margin:0;background:#161826;color:#e9e9ed;font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+*,*::before,*::after{box-sizing:border-box}
+a{color:#9184d9;text-underline-offset:3px}
+a:hover{color:#b5abfc}
+:focus{outline:none}
+:focus-visible{outline:2px solid #9184d9;outline-offset:2px}
+::selection{background:rgba(145,132,217,.3)}
+input,textarea,button{font-family:inherit}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-thumb{background:#3f424d;border-radius:3px}
+@keyframes kb-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style></helmet>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#161826"/><rect x="30" y="30" width="40" height="40" rx="8" fill="none" stroke="#9184d9" stroke-width="3"/><rect x="43" y="43" width="14" height="14" rx="3" fill="#9184d9"/></svg></template>
+<div style="padding:44px 48px 72px;display:flex;flex-direction:column;gap:34px;min-width:1720px">
+
+  <div style="display:flex;gap:56px;align-items:flex-start;max-width:1500px">
+    <div style="flex:1.2;min-width:0">
+      <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#9184d9;margin-bottom:10px">Krambua i Skånevik · tilsett-app</div>
+      <h1 style="font-size:42px;font-weight:500;line-height:1.08;letter-spacing:-.02em;margin:0 0 14px">Beskjedar, dagens liste<br>og handboka — på ein stad.</h1>
+      <p style="margin:0;font-size:14px;line-height:1.6;color:rgba(233,233,237,.62);max-width:52ch;text-wrap:pretty">Ein interaktiv prototype i to delar: telefonen dei tilsette bruker, og nettsida du styrer frå. Alt er klikkbart — logg inn, kryss av, skriv avvik, send beskjed. Beskjedar du sender i leiarvisninga dukkar opp på telefonen med ein gong.</p>
+    </div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:22px 30px;padding-top:6px">
+      <div>
+        <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(233,233,237,.45);margin-bottom:7px">Det eg gjekk ut frå</div>
+        <p style="margin:0;font-size:12.5px;line-height:1.55;color:rgba(233,233,237,.72)">6–15 tilsette, mest kassa og deltid. Du lagar lister manuelt, per person, og kan leggje dei fram i tid. Oppgåve = avkryssing + kommentar/avvik. Ikkje bilete, ikkje signatur — enklare er betre.</p>
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(233,233,237,.45);margin-bottom:7px">Val eg tok</div>
+        <p style="margin:0;font-size:12.5px;line-height:1.55;color:rgba(233,233,237,.72)">Fire faner, ikkje fleire. Dagens liste er det første du ser etter innlogging. Tavle og chat ligg under same fane, fordi det er «meldingar» for folk flest. Alt er ei nettside som kan installerast på heimskjermen — då slepp du app-butikkane.</p>
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(233,233,237,.45);margin-bottom:7px">Språk</div>
+        <p style="margin:0;font-size:12.5px;line-height:1.55;color:rgba(233,233,237,.72)">All tekst er nynorsk her. Kvar tekst i appen ligg i ei ordliste med nn/nb, og valet står på innloggingsskjermen og i profilen — det er den same skjermen, berre andre ord.</p>
+      </div>
+      <div>
+        <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(233,233,237,.45);margin-bottom:7px">Neste steg</div>
+        <p style="margin:0;font-size:12.5px;line-height:1.55;color:rgba(233,233,237,.72)">Seie frå om noko manglar: vaktplan, opplæring av nye, eller varsel på telefonen når du sender ein beskjed. Eg kan òg lage lyse variantar om skjermane er vanskelege å lese i dagslys bak disken.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:56px;align-items:flex-start;flex-wrap:wrap">
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:10px">
+        <span style="font-size:10.5px;font-weight:600;font-family:ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(145,132,217,.16);color:#d2cefd;border-radius:5px">Tilsett</span>
+        <span style="font-size:12px;color:rgba(233,233,237,.55)">Telefon · trykk deg gjennom heile flyten</span>
+      </div>
+
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" width="402" height="874" hint-size="402px,874px">
+        <div style="position:relative;height:100%;display:flex;flex-direction:column;background:#161826;overflow:hidden">
+
+          <sc-if value="{{ showLogin }}" hint-placeholder-val="{{ true }}">
+            <div data-screen-label="Innlogging" style="flex:1;display:flex;flex-direction:column;padding:96px 30px 40px">
+              <div style="width:44px;height:44px;border-radius:12px;border:1px solid #9184d9;display:flex;align-items:center;justify-content:center;margin-bottom:26px">
+                <div style="width:14px;height:14px;background:#9184d9;border-radius:3px"></div>
+              </div>
+              <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9184d9;margin-bottom:8px">Krambua i Skånevik</div>
+              <h2 style="font-size:30px;font-weight:500;letter-spacing:-.02em;line-height:1.1;margin:0 0 8px">God morgon.</h2>
+              <p style="margin:0 0 30px;font-size:14px;color:rgba(233,233,237,.6)">Logg på med brukarnamnet du fekk av Kari.</p>
+
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <div>
+                  <label style="display:block;font-size:12px;margin-bottom:6px;color:rgba(233,233,237,.7)">Brukarnamn</label>
+                  <input value="{{ u }}" onChange="{{ setU }}" placeholder="ingrid.vik" style="width:100%;min-height:44px;padding:8px 12px;font-size:15px;color:#e9e9ed;background:#232532;border:1px solid rgba(233,233,237,.16);border-radius:8px;caret-color:#9184d9">
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;margin-bottom:6px;color:rgba(233,233,237,.7)">Passord</label>
+                  <input type="password" value="{{ p }}" onChange="{{ setP }}" placeholder="••••••••" style="width:100%;min-height:44px;padding:8px 12px;font-size:15px;color:#e9e9ed;background:#232532;border:1px solid rgba(233,233,237,.16);border-radius:8px;caret-color:#9184d9">
+                </div>
+              </div>
+
+              <div onClick="{{ login }}" style="margin-top:22px;min-height:48px;display:flex;align-items:center;justify-content:center;border:1px solid #9184d9;color:#9184d9;border-radius:8px;font-weight:500;font-size:15px;cursor:pointer" style-hover="background:rgba(145,132,217,.12)" style-active="background:rgba(145,132,217,.22)">Logg inn</div>
+
+              <div style="margin-top:14px;text-align:center;font-size:13px;color:rgba(233,233,237,.5);cursor:pointer">Gløymt passord?</div>
+
+              <div style="margin-top:auto;display:flex;flex-direction:column;gap:10px;align-items:center">
+                <div style="font-size:11px;color:rgba(233,233,237,.4)">Språk i appen</div>
+                <div style="display:inline-flex;border:1px solid rgba(233,233,237,.16);border-radius:8px;overflow:hidden">
+                  <div onClick="{{ setNn }}" style="padding:9px 18px;font-size:13px;cursor:pointer;color:{{ nnColor }};box-shadow:{{ nnRing }}">Nynorsk</div>
+                  <div onClick="{{ setNb }}" style="padding:9px 18px;font-size:13px;cursor:pointer;border-left:1px solid rgba(233,233,237,.16);color:{{ nbColor }};box-shadow:{{ nbRing }}">Bokmål</div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ showApp }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:1;display:flex;flex-direction:column;min-height:0">
+
+              <div style="padding:60px 20px 12px;display:flex;align-items:center;gap:12px;flex:none">
+                <div style="width:36px;height:36px;border-radius:18px;background:#423a6a;color:#d2cefd;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex:none">IV</div>
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:15px;font-weight:500;line-height:1.2">{{ headerTitle }}</div>
+                  <div style="font-size:11.5px;color:rgba(233,233,237,.5)">{{ headerSub }}</div>
+                </div>
+                <div onClick="{{ logout }}" style="width:36px;height:36px;border-radius:8px;border:1px solid rgba(233,233,237,.16);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none" style-hover="background:rgba(233,233,237,.07)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(233,233,237,.7)" strokeWidth="1.7" strokeLinecap="round"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"></path><path d="M10 8l-4 4 4 4"></path><path d="M6 12h9"></path></svg>
+                </div>
+              </div>
+
+              <div style="flex:1;overflow:auto;min-height:0">
+
+                <sc-if value="{{ isHeim }}" hint-placeholder-val="{{ false }}">
+                  <div data-screen-label="Heim" style="padding:8px 20px 28px;display:flex;flex-direction:column;gap:16px">
+                    <div onClick="{{ goSjekk }}" style="border-radius:8px;background:#232532;box-shadow:0 0 0 1px #3f424d;padding:18px;cursor:pointer;display:flex;flex-direction:column;gap:14px" style-hover="box-shadow:0 0 0 1px #595d6c">
+                      <div style="display:flex;align-items:flex-start;gap:14px">
+                        <div style="flex:1">
+                          <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#9184d9;margin-bottom:5px">Dagens liste</div>
+                          <div style="font-size:19px;font-weight:500;line-height:1.2">{{ listName }}</div>
+                          <div style="font-size:12px;color:rgba(233,233,237,.5);margin-top:4px">{{ listMeta }}</div>
+                        </div>
+                        <div style="font-size:26px;font-weight:500;color:#d2cefd;letter-spacing:-.02em;flex:none">{{ doneOfTotal }}</div>
+                      </div>
+                      <div style="height:4px;border-radius:2px;background:#292b31;overflow:hidden">
+                        <div style="height:100%;background:#9184d9;border-radius:2px;width:{{ progressPct }}"></div>
+                      </div>
+                      <div style="font-size:13px;color:#d2cefd">{{ nextTaskLabel }}</div>
+                    </div>
+
+                    <div>
+                      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:9px">
+                        <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(233,233,237,.5)">Nytt frå Kari</div>
+                        <div onClick="{{ goMeld }}" style="font-size:12px;color:#9184d9;cursor:pointer">Sjå alle</div>
+                      </div>
+                      <div style="display:flex;flex-direction:column;gap:9px">
+                        <sc-for list="{{ topPosts }}" as="post" hint-placeholder-count="2">
+                          <div onClick="{{ goMeld }}" style="border-radius:8px;background:#232532;padding:14px;cursor:pointer;display:flex;flex-direction:column;gap:5px" style-hover="background:#282a38">
+                            <div style="display:flex;align-items:center;gap:8px">
+                              <div style="width:6px;height:6px;border-radius:3px;background:#9184d9;flex:none"></div>
+                              <div style="font-size:14.5px;font-weight:500;flex:1;min-width:0">{{ post.title }}</div>
+                              <div style="font-size:11px;color:rgba(233,233,237,.45);flex:none">{{ post.time }}</div>
+                            </div>
+                            <div style="font-size:13px;color:rgba(233,233,237,.62);line-height:1.45;padding-left:14px">{{ post.short }}</div>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(233,233,237,.5);margin-bottom:9px">Snarvegar</div>
+                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+                        <div onClick="{{ goRutine }}" style="border-radius:8px;background:#232532;padding:14px;display:flex;flex-direction:column;gap:8px;cursor:pointer" style-hover="background:#282a38">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9184d9" strokeWidth="1.6" strokeLinecap="round"><path d="M5 4h9a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"></path><path d="M17 20h2V7"></path></svg>
+                          <div style="font-size:13.5px;line-height:1.25">Opning av butikken</div>
+                        </div>
+                        <div onClick="{{ openAvvikQuick }}" style="border-radius:8px;background:#232532;padding:14px;display:flex;flex-direction:column;gap:8px;cursor:pointer" style-hover="background:#282a38">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9184d9" strokeWidth="1.6" strokeLinecap="round"><path d="M12 4v10"></path><circle cx="12" cy="19" r="1.2" fill="#9184d9" stroke="none"></circle></svg>
+                          <div style="font-size:13.5px;line-height:1.25">Meld eit avvik</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </sc-if>
+
+                <sc-if value="{{ isSjekk }}" hint-placeholder-val="{{ false }}">
+                  <div data-screen-label="Sjekkliste" style="padding:8px 20px 28px;display:flex;flex-direction:column;gap:14px">
+                    <div style="display:flex;align-items:center;gap:12px">
+                      <div style="flex:1">
+                        <div style="font-size:19px;font-weight:500;line-height:1.2">{{ listName }}</div>
+                        <div style="font-size:12px;color:rgba(233,233,237,.5);margin-top:3px">{{ listMeta }}</div>
+                      </div>
+                      <div style="font-size:13px;color:#d2cefd;flex:none">{{ doneOfTotal }}</div>
+                    </div>
+                    <div style="height:4px;border-radius:2px;background:#292b31;overflow:hidden">
+                      <div style="height:100%;background:#9184d9;border-radius:2px;width:{{ progressPct }}"></div>
+                    </div>
+
+                    <div style="display:flex;flex-direction:column;gap:8px">
+                      <sc-for list="{{ tasks }}" as="t" hint-placeholder-count="6">
+                        <div style="border-radius:8px;background:#232532;overflow:hidden">
+                          <div onClick="{{ t.toggle }}" style="display:flex;gap:13px;padding:15px 14px;align-items:flex-start;cursor:pointer" style-hover="background:#282a38">
+                            <sc-if value="{{ t.done }}" hint-placeholder-val="{{ false }}">
+                              <div style="width:22px;height:22px;border-radius:11px;background:#9184d9;display:flex;align-items:center;justify-content:center;flex:none;margin-top:1px">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#161826" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12.5l5 5L20 6.5"></path></svg>
+                              </div>
+                            </sc-if>
+                            <sc-if value="{{ t.open }}" hint-placeholder-val="{{ true }}">
+                              <div style="width:22px;height:22px;border-radius:11px;border:1.5px solid #595d6c;flex:none;margin-top:1px"></div>
+                            </sc-if>
+                            <div style="flex:1;min-width:0">
+                              <div style="font-size:14.5px;line-height:1.35;color:{{ t.color }}">{{ t.title }}</div>
+                              <div style="font-size:11.5px;color:rgba(233,233,237,.45);margin-top:3px">{{ t.meta }}</div>
+                            </div>
+                          </div>
+                          <sc-if value="{{ t.hasNote }}" hint-placeholder-val="{{ false }}">
+                            <div style="margin:0 14px 12px 49px;padding:10px 12px;border-radius:6px;background:#292b31;border-left:2px solid #9184d9">
+                              <div style="font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#9184d9;margin-bottom:3px">Avvik</div>
+                              <div style="font-size:13px;line-height:1.45;color:rgba(233,233,237,.8)">{{ t.note }}</div>
+                            </div>
+                          </sc-if>
+                          <div onClick="{{ t.openNote }}" style="padding:0 14px 12px 49px;font-size:12.5px;color:#9184d9;cursor:pointer">{{ t.noteLabel }}</div>
+                        </div>
+                      </sc-for>
+                    </div>
+
+                    <sc-if value="{{ allDone }}" hint-placeholder-val="{{ false }}">
+                      <div style="border-radius:8px;padding:18px;background:#232532;box-shadow:0 0 0 1px #9184d9;display:flex;flex-direction:column;gap:6px;animation:kb-rise .3s ease">
+                        <div style="font-size:16px;font-weight:500;color:#d2cefd">Heile lista er kryssa av.</div>
+                        <div style="font-size:13px;color:rgba(233,233,237,.62);line-height:1.45">Kari ser dette med ein gong. God vakt vidare.</div>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ notAllDone }}" hint-placeholder-val="{{ true }}">
+                      <div style="font-size:12px;color:rgba(233,233,237,.4);text-align:center;padding:4px 20px;line-height:1.5">Trykk på ei linje for å krysse av. Er noko ikkje som det skal, skriv eit avvik — då får Kari beskjed.</div>
+                    </sc-if>
+                  </div>
+                </sc-if>
+
+                <sc-if value="{{ isMeld }}" hint-placeholder-val="{{ false }}">
+                  <div data-screen-label="Meldingar" style="padding:8px 0 28px">
+                    <sc-if value="{{ noThread }}" hint-placeholder-val="{{ true }}">
+                      <div style="padding:0 20px 14px">
+                        <div style="display:flex;border:1px solid rgba(233,233,237,.16);border-radius:8px;overflow:hidden">
+                          <div onClick="{{ setTavle }}" style="flex:1;text-align:center;padding:9px 12px;font-size:13.5px;cursor:pointer;color:{{ tavleColor }};box-shadow:{{ tavleRing }}">Tavle</div>
+                          <div onClick="{{ setChat }}" style="flex:1;text-align:center;padding:9px 12px;font-size:13.5px;cursor:pointer;border-left:1px solid rgba(233,233,237,.16);color:{{ chatColor }};box-shadow:{{ chatRing }}">Chat</div>
+                        </div>
+                      </div>
+                    </sc-if>
+
+                    <sc-if value="{{ isTavle }}" hint-placeholder-val="{{ true }}">
+                      <div style="padding:0 20px;display:flex;flex-direction:column;gap:10px">
+                        <sc-for list="{{ posts }}" as="post" hint-placeholder-count="3">
+                          <div style="border-radius:8px;background:#232532;padding:16px;display:flex;flex-direction:column;gap:8px">
+                            <div style="display:flex;align-items:center;gap:9px">
+                              <div style="width:26px;height:26px;border-radius:13px;background:#423a6a;color:#d2cefd;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:600;flex:none">KN</div>
+                              <div style="font-size:12px;color:rgba(233,233,237,.6);flex:1">Kari Nes · leiar</div>
+                              <div style="font-size:11px;color:rgba(233,233,237,.42)">{{ post.time }}</div>
+                            </div>
+                            <div style="font-size:16px;font-weight:500;line-height:1.25">{{ post.title }}</div>
+                            <div style="font-size:13.5px;line-height:1.5;color:rgba(233,233,237,.72)">{{ post.body }}</div>
+                            <div style="display:flex;align-items:center;gap:7px;padding-top:2px">
+                              <div style="width:5px;height:5px;border-radius:3px;background:#595d6c"></div>
+                              <div style="font-size:11px;color:rgba(233,233,237,.42)">{{ post.reads }}</div>
+                            </div>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+
+                    <sc-if value="{{ isChatList }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex;flex-direction:column">
+                        <sc-for list="{{ threads }}" as="th" hint-placeholder-count="4">
+                          <div onClick="{{ th.open }}" style="display:flex;gap:13px;padding:13px 20px;align-items:center;cursor:pointer" style-hover="background:#1e2030">
+                            <div style="width:38px;height:38px;border-radius:19px;background:#292b31;color:{{ th.avaColor }};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex:none">{{ th.ini }}</div>
+                            <div style="flex:1;min-width:0">
+                              <div style="font-size:14.5px;font-weight:500;line-height:1.25">{{ th.name }}</div>
+                              <div style="font-size:12.5px;color:rgba(233,233,237,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ th.last }}</div>
+                            </div>
+                            <div style="font-size:11px;color:rgba(233,233,237,.4);flex:none">{{ th.time }}</div>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-if>
+
+                <sc-if value="{{ isHandbok }}" hint-placeholder-val="{{ false }}">
+                  <div data-screen-label="Handbok" style="padding:8px 20px 28px;display:flex;flex-direction:column;gap:16px">
+                    <sc-if value="{{ noArticle }}" hint-placeholder-val="{{ true }}">
+                      <div style="display:flex;flex-direction:column;gap:16px">
+                        <div style="display:flex;align-items:center;gap:9px;padding:0 12px;min-height:44px;background:#232532;border:1px solid rgba(233,233,237,.16);border-radius:8px">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(233,233,237,.5)" strokeWidth="1.7" strokeLinecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.5 4.5"></path></svg>
+                          <input value="{{ q }}" onChange="{{ setQ }}" placeholder="Søk i rutinar, reglar og skjema" style="flex:1;border:none;background:transparent;color:#e9e9ed;font-size:14px;padding:8px 0;caret-color:#9184d9">
+                        </div>
+                        <sc-for list="{{ hbGroups }}" as="g" hint-placeholder-count="3">
+                          <div>
+                            <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(233,233,237,.5);margin-bottom:9px">{{ g.name }}</div>
+                            <div style="display:flex;flex-direction:column;gap:7px">
+                              <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="4">
+                                <div onClick="{{ it.open }}" style="display:flex;align-items:center;gap:12px;padding:13px 14px;background:#232532;border-radius:8px;cursor:pointer" style-hover="background:#282a38">
+                                  <div style="width:26px;height:26px;border-radius:6px;background:#292b31;display:flex;align-items:center;justify-content:center;flex:none;color:#9184d9;font-size:10px;font-weight:600">{{ it.badge }}</div>
+                                  <div style="flex:1;min-width:0">
+                                    <div style="font-size:14.5px;line-height:1.3">{{ it.title }}</div>
+                                    <div style="font-size:11.5px;color:rgba(233,233,237,.45);margin-top:2px">{{ it.sub }}</div>
+                                  </div>
+                                  <svg width="7" height="12" viewBox="0 0 8 14" fill="none" stroke="rgba(233,233,237,.35)" strokeWidth="2" strokeLinecap="round" style="flex:none"><path d="M1 1l6 6-6 6"></path></svg>
+                                </div>
+                              </sc-for>
+                            </div>
+                          </div>
+                        </sc-for>
+                        <sc-if value="{{ hbEmpty }}" hint-placeholder-val="{{ false }}">
+                          <div style="text-align:center;padding:30px 20px;font-size:13px;color:rgba(233,233,237,.45);line-height:1.5">Fann ingenting på «{{ q }}». Prøv eit anna ord, eller spør Kari i chatten.</div>
+                        </sc-if>
+                      </div>
+                    </sc-if>
+
+                    <sc-if value="{{ hasArticle }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex;flex-direction:column;gap:16px;animation:kb-rise .25s ease">
+                        <div onClick="{{ closeArticle }}" style="display:inline-flex;align-items:center;gap:7px;font-size:13px;color:#9184d9;cursor:pointer;align-self:flex-start">
+                          <svg width="7" height="12" viewBox="0 0 8 14" fill="none" stroke="#9184d9" strokeWidth="2" strokeLinecap="round"><path d="M7 1L1 7l6 6"></path></svg>
+                          Tilbake
+                        </div>
+                        <div>
+                          <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#9184d9;margin-bottom:6px">{{ artKicker }}</div>
+                          <h3 style="font-size:24px;font-weight:500;letter-spacing:-.015em;line-height:1.15;margin:0 0 6px">{{ artTitle }}</h3>
+                          <div style="font-size:12px;color:rgba(233,233,237,.45)">{{ artMeta }}</div>
+                        </div>
+                        <div style="display:flex;flex-direction:column;gap:2px">
+                          <sc-for list="{{ artSteps }}" as="s" hint-placeholder-count="5">
+                            <div style="display:flex;gap:14px;padding:13px 0;border-bottom:1px solid rgba(233,233,237,.08)">
+                              <div style="width:22px;height:22px;border-radius:11px;border:1px solid #595d6c;color:rgba(233,233,237,.6);display:flex;align-items:center;justify-content:center;font-size:11px;flex:none">{{ s.n }}</div>
+                              <div style="flex:1;font-size:14px;line-height:1.5;color:rgba(233,233,237,.85)">{{ s.text }}</div>
+                            </div>
+                          </sc-for>
+                        </div>
+                        <div style="display:flex;gap:9px">
+                          <div style="flex:1;min-height:42px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(233,233,237,.16);border-radius:8px;font-size:13.5px;cursor:pointer" style-hover="background:rgba(233,233,237,.07)">Last ned PDF</div>
+                          <div onClick="{{ openAvvikQuick }}" style="flex:1;min-height:42px;display:flex;align-items:center;justify-content:center;border:1px solid #9184d9;color:#9184d9;border-radius:8px;font-size:13.5px;cursor:pointer" style-hover="background:rgba(145,132,217,.12)">Meld avvik</div>
+                        </div>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-if>
+
+              </div>
+
+              <div style="flex:none;display:flex;background:#1b1d2b;border-top:1px solid rgba(233,233,237,.1);padding:8px 6px 28px">
+                <div onClick="{{ goHeim }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:6px 0;cursor:pointer;color:{{ tHeim }}">
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"><path d="M3 9.8L12 3l9 6.8V20a1 1 0 0 1-1 1h-4.5v-6h-7v6H4a1 1 0 0 1-1-1z"></path></svg>
+                  <span style="font-size:10px">Heim</span>
+                </div>
+                <div onClick="{{ goSjekk }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:6px 0;cursor:pointer;color:{{ tSjekk }}">
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3"></rect><path d="M8 12.3l2.7 2.7L16.5 9"></path></svg>
+                  <span style="font-size:10px">Sjekkliste</span>
+                </div>
+                <div onClick="{{ goMeld }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:6px 0;cursor:pointer;color:{{ tMeld }};position:relative">
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"><path d="M4.5 5h15a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H10l-4.5 4v-4h-1a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"></path></svg>
+                  <span style="font-size:10px">Meldingar</span>
+                  <sc-if value="{{ hasUnread }}" hint-placeholder-val="{{ true }}">
+                    <div style="position:absolute;top:4px;right:24px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:#9184d9;color:#161826;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center">{{ unread }}</div>
+                  </sc-if>
+                </div>
+                <div onClick="{{ goHandbok }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:6px 0;cursor:pointer;color:{{ tHb }}">
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M5 4.5h8a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z"></path><path d="M16 19.5h3v-13h-3"></path></svg>
+                  <span style="font-size:10px">Handbok</span>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ threadOpen }}" hint-placeholder-val="{{ false }}">
+            <div data-screen-label="Chat-tråd" style="position:absolute;inset:0;background:#161826;display:flex;flex-direction:column;animation:kb-rise .22s ease">
+              <div style="flex:none;padding:60px 16px 12px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(233,233,237,.09)">
+                <div onClick="{{ closeThread }}" style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none">
+                  <svg width="9" height="16" viewBox="0 0 8 14" fill="none" stroke="#9184d9" strokeWidth="2" strokeLinecap="round"><path d="M7 1L1 7l6 6"></path></svg>
+                </div>
+                <div style="width:32px;height:32px;border-radius:16px;background:#292b31;color:#d2cefd;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex:none">{{ threadIni }}</div>
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:15px;font-weight:500;line-height:1.2">{{ threadName }}</div>
+                  <div style="font-size:11.5px;color:rgba(233,233,237,.45)">{{ threadSub }}</div>
+                </div>
+              </div>
+              <div style="flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:10px">
+                <sc-for list="{{ msgs }}" as="m" hint-placeholder-count="4">
+                  <div style="display:flex;flex-direction:column;align-items:{{ m.align }};gap:3px">
+                    <div style="max-width:78%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.45;background:{{ m.bg }};color:{{ m.fg }};border-bottom-right-radius:{{ m.brr }};border-bottom-left-radius:{{ m.blr }}">{{ m.text }}</div>
+                    <div style="font-size:10.5px;color:rgba(233,233,237,.35);padding:0 4px">{{ m.meta }}</div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="flex:none;padding:10px 14px 30px;border-top:1px solid rgba(233,233,237,.09);display:flex;gap:9px;align-items:flex-end">
+                <input value="{{ draft }}" onChange="{{ setDraft }}" onKeyDown="{{ maybeSend }}" placeholder="Skriv ei melding" style="flex:1;min-height:42px;padding:10px 14px;font-size:14.5px;color:#e9e9ed;background:#232532;border:1px solid rgba(233,233,237,.16);border-radius:21px;caret-color:#9184d9">
+                <div onClick="{{ send }}" style="width:42px;height:42px;border-radius:21px;border:1px solid #9184d9;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none" style-hover="background:rgba(145,132,217,.12)">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#9184d9" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;inset:0;background:rgba(41,43,49,.62);display:flex;align-items:flex-end;z-index:80">
+              <div style="width:100%;background:#232532;border-radius:14px 14px 0 0;padding:22px 20px 34px;display:flex;flex-direction:column;gap:14px;box-shadow:0 0 0 1px #9397ab,0 -16px 40px rgba(0,0,0,.65);animation:kb-rise .24s ease">
+                <div>
+                  <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#9184d9;margin-bottom:5px">Avvik / kommentar</div>
+                  <div style="font-size:17px;font-weight:500;line-height:1.25">{{ sheetTitle }}</div>
+                </div>
+                <textarea value="{{ noteDraft }}" onChange="{{ setNoteDraft }}" placeholder="Kva var ikkje som det skulle vere?" style="width:100%;min-height:96px;padding:11px 12px;font-size:14.5px;line-height:1.45;color:#e9e9ed;background:#292b31;border:1px solid rgba(233,233,237,.16);border-radius:8px;resize:none;caret-color:#9184d9"></textarea>
+                <div style="font-size:11.5px;color:rgba(233,233,237,.45);line-height:1.45">Kari får dette på leiarsida med ein gong, saman med klokkeslett og namnet ditt.</div>
+                <div style="display:flex;gap:9px">
+                  <div onClick="{{ closeSheet }}" style="flex:1;min-height:44px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(233,233,237,.16);border-radius:8px;font-size:14px;cursor:pointer" style-hover="background:rgba(233,233,237,.07)">Avbryt</div>
+                  <div onClick="{{ saveNote }}" style="flex:1;min-height:44px;display:flex;align-items:center;justify-content:center;border:1px solid #9184d9;color:#9184d9;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer" style-hover="background:rgba(145,132,217,.12)">Send avvik</div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+        </div>
+      </x-import>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:baseline;gap:10px">
+        <span style="font-size:10.5px;font-weight:600;font-family:ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(145,132,217,.16);color:#d2cefd;border-radius:5px">Leiar</span>
+        <span style="font-size:12px;color:rgba(233,233,237,.55)">Nettside · lag lister fram i tid, send beskjed, sjå kva som er gjort</span>
+      </div>
+
+      <x-import component-from-global-scope="ChromeWindow" from="./browser-window.jsx" width="1180" height="796" url="krambua.no/leiar" hint-size="1180px,796px">
+        <div style="height:100%;display:flex;background:#161826;color:#e9e9ed;font-family:Inter,system-ui,sans-serif;position:relative;overflow:hidden">
+
+          <div style="width:214px;flex:none;background:#1b1d2b;border-right:1px solid rgba(233,233,237,.09);display:flex;flex-direction:column;padding:20px 12px">
+            <div style="display:flex;align-items:center;gap:10px;padding:0 8px 20px">
+              <div style="width:26px;height:26px;border-radius:7px;border:1px solid #9184d9;display:flex;align-items:center;justify-content:center;flex:none">
+                <div style="width:9px;height:9px;background:#9184d9;border-radius:2px"></div>
+              </div>
+              <div style="font-size:14px;font-weight:500">Krambua</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <div onClick="{{ aOversikt }}" style="padding:9px 10px;border-radius:6px;font-size:13.5px;cursor:pointer;color:{{ aoColor }};background:{{ aoBg }}">Oversikt</div>
+              <div onClick="{{ aLister }}" style="padding:9px 10px;border-radius:6px;font-size:13.5px;cursor:pointer;color:{{ alColor }};background:{{ alBg }}">Sjekklister</div>
+              <div onClick="{{ aBeskjed }}" style="padding:9px 10px;border-radius:6px;font-size:13.5px;cursor:pointer;color:{{ abColor }};background:{{ abBg }}">Beskjedar</div>
+              <div onClick="{{ aHandbok }}" style="padding:9px 10px;border-radius:6px;font-size:13.5px;cursor:pointer;color:{{ ahColor }};background:{{ ahBg }}">Handbok</div>
+              <div onClick="{{ aTilsette }}" style="padding:9px 10px;border-radius:6px;font-size:13.5px;cursor:pointer;color:{{ atColor }};background:{{ atBg }}">Tilsette</div>
+            </div>
+            <div style="margin-top:auto;padding:12px 10px;border-radius:8px;background:#232532">
+              <div style="font-size:11.5px;color:rgba(233,233,237,.55);line-height:1.45">Innlogga som<br><span style="color:#e9e9ed">Kari Nes</span> · leiar</div>
+            </div>
+          </div>
+
+          <div style="flex:1;min-width:0;overflow:auto;padding:28px 32px 40px">
+
+            <sc-if value="{{ isOversikt }}" hint-placeholder-val="{{ true }}">
+              <div data-screen-label="Leiar · oversikt" style="display:flex;flex-direction:column;gap:26px">
+                <div>
+                  <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#9184d9;margin-bottom:7px">Onsdag 3. september</div>
+                  <h2 style="font-size:29px;font-weight:500;letter-spacing:-.02em;margin:0">I dag på krambua</h2>
+                </div>
+
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+                  <div style="padding:16px;border-radius:8px;background:#232532;display:flex;flex-direction:column;gap:4px">
+                    <div style="font-size:11px;color:rgba(233,233,237,.5)">Lister i dag</div>
+                    <div style="font-size:26px;font-weight:500;letter-spacing:-.02em">4</div>
+                  </div>
+                  <div style="padding:16px;border-radius:8px;background:#232532;display:flex;flex-direction:column;gap:4px">
+                    <div style="font-size:11px;color:rgba(233,233,237,.5)">Oppgåver gjort</div>
+                    <div style="font-size:26px;font-weight:500;letter-spacing:-.02em;color:#d2cefd">{{ admDoneStat }}</div>
+                  </div>
+                  <div style="padding:16px;border-radius:8px;background:#232532;display:flex;flex-direction:column;gap:4px">
+                    <div style="font-size:11px;color:rgba(233,233,237,.5)">Avvik i dag</div>
+                    <div style="font-size:26px;font-weight:500;letter-spacing:-.02em">{{ avvikCount }}</div>
+                  </div>
+                  <div style="padding:16px;border-radius:8px;background:#232532;display:flex;flex-direction:column;gap:4px">
+                    <div style="font-size:11px;color:rgba(233,233,237,.5)">Ulesne beskjedar</div>
+                    <div style="font-size:26px;font-weight:500;letter-spacing:-.02em">3</div>
+                  </div>
+                </div>
+
+                <div>
+                  <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(233,233,237,.5);margin-bottom:12px">Kven som er i gang</div>
+                  <div style="display:flex;flex-direction:column">
+                    <sc-for list="{{ staffToday }}" as="s" hint-placeholder-count="4">
+                      <div style="display:flex;align-items:center;gap:16px;padding:14px 4px;border-bottom:1px solid rgba(233,233,237,.08)">
+                        <div style="width:32px;height:32px;border-radius:16px;background:#292b31;color:#d2cefd;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex:none">{{ s.ini }}</div>
+                        <div style="width:150px;flex:none">
+                          <div style="font-size:14px">{{ s.name }}</div>
+                          <div style="font-size:11.5px;color:rgba(233,233,237,.45)">{{ s.shift }}</div>
+                        </div>
+                        <div style="flex:1;min-width:0">
+                          <div style="font-size:12.5px;color:rgba(233,233,237,.65);margin-bottom:6px">{{ s.list }}</div>
+                          <div style="height:4px;border-radius:2px;background:#292b31;overflow:hidden;max-width:420px">
+                            <div style="height:100%;border-radius:2px;background:{{ s.barColor }};width:{{ s.pct }}"></div>
+                          </div>
+                        </div>
+                        <div style="width:64px;text-align:right;font-size:13px;color:rgba(233,233,237,.7);flex:none">{{ s.count }}</div>
+                        <div style="width:96px;text-align:right;flex:none">
+                          <span style="display:inline-flex;align-items:center;font-size:11px;padding:3px 10px;border-radius:6px;background:{{ s.tagBg }};color:{{ s.tagFg }}">{{ s.status }}</span>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+
+                <div>
+                  <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(233,233,237,.5);margin-bottom:12px">Avvik som treng eit svar</div>
+                  <div style="display:flex;flex-direction:column;gap:9px">
+                    <sc-for list="{{ avvik }}" as="a" hint-placeholder-count="2">
+                      <div style="display:flex;gap:14px;padding:14px 16px;border-radius:8px;background:#232532;border-left:2px solid #9184d9;align-items:flex-start">
+                        <div style="flex:1;min-width:0">
+                          <div style="font-size:13.5px;line-height:1.45;color:rgba(233,233,237,.85)">{{ a.text }}</div>
+                          <div style="font-size:11.5px;color:rgba(233,233,237,.45);margin-top:5px">{{ a.meta }}</div>
+                        </div>
+                        <div style="font-size:12.5px;color:#9184d9;cursor:pointer;flex:none">Svar</div>
+                      </div>
+                    </sc-for>
+                    <sc-if value="{{ noAvvik }}" hint-placeholder-val="{{ false }}">
+                      <div style="padding:22px;border-radius:8px;background:#232532;font-size:13px;color:rgba(233,233,237,.5)">Ingen avvik i dag. Skriv eitt i telefonen til venstre, så dukkar det opp her.</div>
+                    </sc-if>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isLister }}" hint-placeholder-val="{{ false }}">
+              <div data-screen-label="Leiar · sjekklister" style="display:flex;flex-direction:column;gap:22px">
+                <div style="display:flex;align-items:flex-end;gap:16px">
+                  <div style="flex:1">
+                    <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#9184d9;margin-bottom:7px">Veke 36 · 1.–7. september</div>
+                    <h2 style="font-size:29px;font-weight:500;letter-spacing:-.02em;margin:0">Sjekklister per person</h2>
+                  </div>
+                  <div onClick="{{ openBuilder }}" style="min-height:38px;padding:0 16px;display:flex;align-items:center;border:1px solid #9184d9;color:#9184d9;border-radius:8px;font-size:13.5px;font-weight:500;cursor:pointer;flex:none" style-hover="background:rgba(145,132,217,.12)">+ Ny liste</div>
+                </div>
+
+                <div style="border-radius:8px;overflow:hidden;box-shadow:0 0 0 1px #3f424d">
+                  <div style="display:flex;background:#1b1d2b">
+                    <div style="width:168px;flex:none;padding:11px 14px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(233,233,237,.5)">Tilsett</div>
+                    <sc-for list="{{ days }}" as="d" hint-placeholder-count="7">
+                      <div style="flex:1;padding:11px 10px;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:{{ d.color }};border-left:1px solid rgba(233,233,237,.07)">{{ d.label }}</div>
+                    </sc-for>
+                  </div>
+                  <sc-for list="{{ grid }}" as="row" hint-placeholder-count="5">
+                    <div style="display:flex;border-top:1px solid rgba(233,233,237,.07);min-height:62px">
+                      <div style="width:168px;flex:none;padding:12px 14px;display:flex;align-items:center;gap:10px;background:#1b1d2b">
+                        <div style="width:26px;height:26px;border-radius:13px;background:#292b31;color:#d2cefd;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex:none">{{ row.ini }}</div>
+                        <div style="font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ row.name }}</div>
+                      </div>
+                      <sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="7">
+                        <div onClick="{{ c.click }}" style="flex:1;min-width:0;padding:8px;border-left:1px solid rgba(233,233,237,.07);cursor:pointer;display:flex" style-hover="background:rgba(233,233,237,.04)">
+                          <sc-if value="{{ c.has }}" hint-placeholder-val="{{ false }}">
+                            <div style="flex:1;min-width:0;border-radius:6px;padding:8px 9px;background:{{ c.bg }};border-left:2px solid {{ c.accent }};display:flex;flex-direction:column;gap:3px;justify-content:center">
+                              <div style="font-size:11.5px;line-height:1.25;color:{{ c.fg }};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.label }}</div>
+                              <div style="font-size:10px;color:rgba(233,233,237,.45)">{{ c.sub }}</div>
+                            </div>
+                          </sc-if>
+                          <sc-if value="{{ c.empty }}" hint-placeholder-val="{{ true }}">
+                            <div style="flex:1;display:flex;align-items:center;justify-content:center;color:rgba(233,233,237,.18);font-size:16px">+</div>
+                          </sc-if>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="font-size:12px;color:rgba(233,233,237,.4);line-height:1.5;max-width:70ch">Klikk ei rute for å lage liste for den personen den dagen — også fram i tid. Grå ruter er dagar utan liste. Ein liste som er laga i dag kan endrast heilt til vakta startar.</div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isBeskjed }}" hint-placeholder-val="{{ false }}">
+              <div data-screen-label="Leiar · beskjedar" style="display:flex;flex-direction:column;gap:24px;max-width:760px">
+                <div>
+                  <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#9184d9;margin-bottom:7px">Oppslagstavla</div>
+                  <h2 style="font-size:29px;font-weight:500;letter-spacing:-.02em;margin:0">Send beskjed til alle</h2>
+                </div>
+                <div style="padding:20px;border-radius:8px;background:#232532;display:flex;flex-direction:column;gap:14px">
+                  <div>
+                    <label style="display:block;font-size:12px;margin-bottom:6px;color:rgba(233,233,237,.7)">Overskrift</label>
+                    <input value="{{ cTitle }}" onChange="{{ setCTitle }}" placeholder="T.d. Nye opningstider frå måndag" style="width:100%;min-height:38px;padding:8px 11px;font-size:14px;color:#e9e9ed;background:#292b31;border:1px solid rgba(233,233,237,.16);border-radius:8px;caret-color:#9184d9">
+                  </div>
+                  <div>
+                    <label style="display:block;font-size:12px;margin-bottom:6px;color:rgba(233,233,237,.7)">Beskjed</label>
+                    <textarea value="{{ cBody }}" onChange="{{ setCBody }}" placeholder="Skriv kort. Det viktigaste først." style="width:100%;min-height:92px;padding:10px 11px;font-size:14px;line-height:1.5;color:#e9e9ed;background:#292b31;border:1px solid rgba(233,233,237,.16);border-radius:8px;resize:vertical;caret-color:#9184d9"></textarea>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:12px">
+                    <div style="font-size:12.5px;color:rgba(233,233,237,.55);flex:1">Går til alle 7 tilsette. Du ser kven som har lese han.</div>
+                    <div onClick="{{ sendPost }}" style="min-height:38px;padding:0 18px;display:flex;align-items:center;border:1px solid #9184d9;color:#9184d9;border-radius:8px;font-size:13.5px;font-weight:500;cursor:pointer" style-hover="background:rgba(145,132,217,.12)">Legg ut</div>
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(233,233,237,.5);margin-bottom:12px">Lagt ut tidlegare</div>
+                  <div style="display:flex;flex-direction:column;gap:9px">
+                    <sc-for list="{{ posts }}" as="post" hint-placeholder-count="3">
+                      <div style="padding:15px 16px;border-radius:8px;background:#232532;display:flex;gap:16px;align-items:flex-start">
+                        <div style="flex:1;min-width:0">
+                          <div style="font-size:15px;font-weight:500;line-height:1.25;margin-bottom:4px">{{ post.title }}</div>
+                          <div style="font-size:13px;line-height:1.5;color:rgba(233,233,237,.65)">{{ post.body }}</div>
+                        </div>
+                        <div style="text-align:right;flex:none">
+                          <div style="font-size:11px;color:rgba(233,233,237,.42);margin-bottom:6px">{{ post.time }}</div>
+                          <span style="display:inline-flex;font-size:11px;padding:3px 10px;border-radius:6px;background:#3f424d;color:#f3f5fe">{{ post.reads }}</span>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isAdmHb }}" hint-placeholder-val="{{ false }}">
+              <div data-screen-label="Leiar · handbok" style="display:flex;flex-direction:column;gap:22px;max-width:860px">
+                <div>
+                  <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#9184d9;margin-bottom:7px">Rutinar, reglar og skjema</div>
+                  <h2 style="font-size:29px;font-weight:500;letter-spacing:-.02em;margin:0">Handboka for krambua</h2>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                  <sc-for list="{{ hbFlat }}" as="it" hint-placeholder-count="8">
+                    <div style="padding:15px 16px;border-radius:8px;background:#232532;display:flex;align-items:center;gap:13px">
+                      <div style="width:28px;height:28px;border-radius:6px;background:#292b31;color:#9184d9;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex:none">{{ it.badge }}</div>
+                      <div style="flex:1;min-width:0">
+                        <div style="font-size:14px;line-height:1.3">{{ it.title }}</div>
+                        <div style="font-size:11.5px;color:rgba(233,233,237,.45);margin-top:2px">{{ it.sub }}</div>
+                      </div>
+                      <div style="font-size:12px;color:#9184d9;cursor:pointer;flex:none">Rediger</div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="font-size:12px;color:rgba(233,233,237,.4);line-height:1.5;max-width:70ch">Du skriv rutinane rett i nettlesaren — same tekst som dei tilsette les på telefonen. PDF-ar kan lastast opp som dei er.</div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isTilsette }}" hint-placeholder-val="{{ false }}">
+              <div data-screen-label="Leiar · tilsette" style="display:flex;flex-direction:column;gap:22px;max-width:860px">
+                <div>
+                  <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#9184d9;margin-bottom:7px">7 personar</div>
+                  <h2 style="font-size:29px;font-weight:500;letter-spacing:-.02em;margin:0">Tilsette og pålogging</h2>
+                </div>
+                <div style="display:flex;flex-direction:column">
+                  <sc-for list="{{ staffAll }}" as="s" hint-placeholder-count="7">
+                    <div style="display:flex;align-items:center;gap:16px;padding:14px 4px;border-bottom:1px solid rgba(233,233,237,.08)">
+                      <div style="width:32px;height:32px;border-radius:16px;background:#292b31;color:#d2cefd;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex:none">{{ s.ini }}</div>
+                      <div style="width:190px;font-size:14px;flex:none">{{ s.name }}</div>
+                      <div style="width:190px;font-size:13px;color:rgba(233,233,237,.55);font-family:ui-monospace,Menlo,monospace;flex:none">{{ s.user }}</div>
+                      <div style="flex:1;font-size:12.5px;color:rgba(233,233,237,.45)">{{ s.role }}</div>
+                      <div style="font-size:12.5px;color:#9184d9;cursor:pointer;flex:none">Nullstill passord</div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+          </div>
+
+          <sc-if value="{{ builderOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;inset:0;background:rgba(41,43,49,.6);display:flex;justify-content:flex-end;z-index:70">
+              <div onClick="{{ closeBuilder }}" style="flex:1"></div>
+              <div style="width:460px;flex:none;background:#232532;box-shadow:0 0 0 1px #9397ab,-16px 0 40px rgba(0,0,0,.65);display:flex;flex-direction:column;animation:kb-rise .22s ease">
+                <div style="padding:22px 24px 16px;border-bottom:1px solid rgba(233,233,237,.09)">
+                  <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#9184d9;margin-bottom:6px">Ny sjekkliste</div>
+                  <div style="font-size:21px;font-weight:500;letter-spacing:-.015em">{{ builderHeading }}</div>
+                </div>
+                <div style="flex:1;overflow:auto;padding:20px 24px;display:flex;flex-direction:column;gap:20px">
+                  <div>
+                    <div style="font-size:12px;color:rgba(233,233,237,.7);margin-bottom:8px">Kven</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:7px">
+                      <sc-for list="{{ builderPeople }}" as="pp" hint-placeholder-count="5">
+                        <div onClick="{{ pp.pick }}" style="padding:7px 13px;border-radius:8px;font-size:13px;cursor:pointer;border:1px solid {{ pp.border }};color:{{ pp.color }}">{{ pp.name }}</div>
+                      </sc-for>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="font-size:12px;color:rgba(233,233,237,.7);margin-bottom:8px">Kva dag</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:7px">
+                      <sc-for list="{{ builderDays }}" as="dd" hint-placeholder-count="7">
+                        <div onClick="{{ dd.pick }}" style="padding:7px 12px;border-radius:8px;font-size:13px;cursor:pointer;border:1px solid {{ dd.border }};color:{{ dd.color }}">{{ dd.label }}</div>
+                      </sc-for>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="font-size:12px;color:rgba(233,233,237,.7);margin-bottom:8px">Namn på lista</div>
+                    <input value="{{ bName }}" onChange="{{ setBName }}" placeholder="T.d. Morgon i krambua" style="width:100%;min-height:38px;padding:8px 11px;font-size:14px;color:#e9e9ed;background:#292b31;border:1px solid rgba(233,233,237,.16);border-radius:8px;caret-color:#9184d9">
+                  </div>
+                  <div>
+                    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px">
+                      <div style="font-size:12px;color:rgba(233,233,237,.7)">Oppgåver</div>
+                      <div style="font-size:11.5px;color:rgba(233,233,237,.4)">{{ bTaskCount }}</div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:9px">
+                      <sc-for list="{{ bTasks }}" as="bt" hint-placeholder-count="3">
+                        <div style="display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:6px;background:#292b31">
+                          <div style="width:16px;height:16px;border-radius:8px;border:1.5px solid #595d6c;flex:none"></div>
+                          <div style="flex:1;font-size:13.5px;line-height:1.35;min-width:0">{{ bt.text }}</div>
+                          <div onClick="{{ bt.remove }}" style="font-size:16px;color:rgba(233,233,237,.35);cursor:pointer;flex:none;line-height:1;padding:0 2px" style-hover="color:#b5abfc">×</div>
+                        </div>
+                      </sc-for>
+                    </div>
+                    <div style="display:flex;gap:8px">
+                      <input value="{{ bNew }}" onChange="{{ setBNew }}" onKeyDown="{{ maybeAddTask }}" placeholder="Ny oppgåve — trykk enter" style="flex:1;min-height:38px;padding:8px 11px;font-size:13.5px;color:#e9e9ed;background:#292b31;border:1px solid rgba(233,233,237,.16);border-radius:8px;caret-color:#9184d9">
+                      <div onClick="{{ addTask }}" style="min-height:38px;padding:0 14px;display:flex;align-items:center;border:1px solid rgba(233,233,237,.16);border-radius:8px;font-size:13.5px;cursor:pointer;flex:none" style-hover="background:rgba(233,233,237,.07)">Legg til</div>
+                    </div>
+                    <div style="margin-top:12px">
+                      <div style="font-size:11px;color:rgba(233,233,237,.4);margin-bottom:7px">Eller start frå ein tidlegare liste</div>
+                      <div style="display:flex;flex-wrap:wrap;gap:7px">
+                        <sc-for list="{{ presets }}" as="pr" hint-placeholder-count="3">
+                          <div onClick="{{ pr.use }}" style="padding:6px 11px;border-radius:6px;font-size:12px;cursor:pointer;background:#292b31;color:rgba(233,233,237,.75)" style-hover="background:#3f424d">{{ pr.name }}</div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div style="padding:16px 24px 20px;border-top:1px solid rgba(233,233,237,.09);display:flex;gap:10px">
+                  <div onClick="{{ closeBuilder }}" style="min-height:40px;padding:0 16px;display:flex;align-items:center;border:1px solid rgba(233,233,237,.16);border-radius:8px;font-size:13.5px;cursor:pointer" style-hover="background:rgba(233,233,237,.07)">Avbryt</div>
+                  <div onClick="{{ saveList }}" style="flex:1;min-height:40px;display:flex;align-items:center;justify-content:center;border:1px solid #9184d9;color:#9184d9;border-radius:8px;font-size:13.5px;font-weight:500;cursor:pointer" style-hover="background:rgba(145,132,217,.12)">{{ saveLabel }}</div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+        </div>
+      </x-import>
+    </div>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1760,&quot;height&quot;:1100}}">
+const TASKS = [
+  { id: 't1', title: 'Sjekk kjøledisken — temperatur og dato på ferskvarene', hint: 'Skriv ned temperaturen i permen' },
+  { id: 't2', title: 'Kok kaffi og fyll opp begge termosane', hint: '' },
+  { id: 't3', title: 'Fyll opp brød og bakevarer frå frysaren', hint: 'Leveranse frå Skånevik bakeri kjem 07.30' },
+  { id: 't4', title: 'Tørk av kassadisken og betalingsterminalen', hint: '' },
+  { id: 't5', title: 'Sjekk at toalettet er reint og har papir', hint: '' },
+  { id: 't6', title: 'Ta inn avisene og set fram sandwichbrettet', hint: '' },
+  { id: 't7', title: 'Tel opp vekslekassa og signer i permen', hint: 'Skal stemme med 2 500 kr' },
+];
+
+const HB = [
+  { name: 'Rutinar', items: [
+    { id: 'r1', badge: '01', title: 'Opning av butikken', sub: '7 steg · oppdatert i august' },
+    { id: 'r2', badge: '02', title: 'Stenging og kassaoppgjer', sub: '9 steg · oppdatert i juni' },
+    { id: 'r3', badge: '03', title: 'Ferskvare og temperatur', sub: '5 steg · Mattilsynet' },
+    { id: 'r4', badge: '04', title: 'Varemottak og svinn', sub: '6 steg' },
+  ] },
+  { name: 'Reglar og HMS', items: [
+    { id: 'g1', badge: 'HMS', title: 'Ran, tjuveri og truslar', sub: 'Les denne før første vakt åleine' },
+    { id: 'g2', badge: 'HMS', title: 'Brann og rømming', sub: 'Kart over sløkkjeapparat' },
+    { id: 'g3', badge: 'LOV', title: 'Sal av alkohol og tobakk', sub: 'Aldersgrenser og tidsavgrensingar' },
+    { id: 'g4', badge: 'REG', title: 'Sjukmelding og fråvær', sub: 'Ring Kari før kl. 07.00' },
+  ] },
+  { name: 'Skjema og PDF', items: [
+    { id: 's1', badge: 'PDF', title: 'Avvikskjema', sub: 'Kan òg fyllast ut i appen' },
+    { id: 's2', badge: 'PDF', title: 'Eigenmelding', sub: '1 side' },
+    { id: 's3', badge: 'PDF', title: 'HMS-handbok 2026', sub: '24 sider' },
+  ] },
+];
+
+const ARTICLES = {
+  r1: { kicker: 'Rutine 01', title: 'Opning av butikken', meta: 'Oppdatert 14. august av Kari Nes · les på 2 min', steps: [
+    'Lås opp bakdøra, slå av alarmen med din eigen kode.',
+    'Slå på lys i butikk, kjøl og utanfor. Skiltet ved vegen er på same brytar.',
+    'Start kassa og sjekk at betalingsterminalen har fått kontakt.',
+    'Les av temperaturen i kjøl og frys, skriv talet i permen ved kjøledisken.',
+    'Kok kaffi og set fram tørrmat før klokka 07.00.',
+    'Tel opp vekslekassa — ho skal innehalde 2 500 kr.',
+    'Lås opp inngangsdøra 07.00 og snu skiltet til OPE.',
+  ] },
+};
+
+const STAFF = [
+  { ini: 'IV', name: 'Ingrid Vik', user: 'ingrid.vik', role: 'Butikkmedarbeidar · fast' },
+  { ini: 'SM', name: 'Sander Mo', user: 'sander.mo', role: 'Butikkmedarbeidar · deltid' },
+  { ini: 'ÅH', name: 'Åse Handeland', user: 'ase.handeland', role: 'Ferskvare · fast' },
+  { ini: 'JT', name: 'Jonas Tveit', user: 'jonas.tveit', role: 'Sesong · helg' },
+  { ini: 'ML', name: 'Mari Låstad', user: 'mari.lastad', role: 'Butikkmedarbeidar · deltid' },
+  { ini: 'PE', name: 'Petter Eide', user: 'petter.eide', role: 'Lager og varemottak' },
+  { ini: 'KN', name: 'Kari Nes', user: 'kari.nes', role: 'Dagleg leiar' },
+];
+
+const DAYS = ['Man 1.', 'Tys 2.', 'Ons 3.', 'Tor 4.', 'Fre 5.', 'Lau 6.', 'Sun 7.'];
+
+const PRESETS = {
+  'Morgon i krambua': ['Sjekk kjøledisken og skriv temperatur', 'Kok kaffi og fyll termosane', 'Fyll opp brød og bakevarer', 'Tel opp vekslekassa'],
+  'Kveld og stenging': ['Tel opp kassa og gjer oppgjer', 'Tøm søppel og vask golv', 'Sjekk at alle dører er låste', 'Set på alarmen'],
+  'Ferskvare': ['Kontroller datoar i kjøledisk', 'Rydd og front hyllene', 'Skriv svinnliste'],
+};
+
+const ACC = '#9184d9';
+const DIM = 'rgba(233,233,237,.5)';
+
+class Component extends DCLogic {
+  state = {
+    logged: false, u: 'ingrid.vik', p: 'krambua25', lang: 'nn',
+    tab: 'heim',
+    done: { t1: true, t2: true }, times: { t1: '06.42', t2: '06.55' },
+    notes: {}, sheet: null, noteDraft: '',
+    mtab: 'tavle', thread: null, draft: '',
+    chats: {
+      alle: [
+        { who: 'Kari Nes', me: false, text: 'Hugs at vi har vareteljing på fredag. Set av ein time frå 15.', t: '08.12' },
+        { who: 'Sander Mo', me: false, text: 'Kan nokon ta laurdagsvakta mi? Skal i bryllaup.', t: '09.40' },
+        { who: 'Ingrid Vik', me: true, text: 'Eg kan ta ho til kl. 15, då må eg hente ungane.', t: '09.51' },
+      ],
+      kari: [
+        { who: 'Kari Nes', me: false, text: 'God morgon! Kaffimaskina er reparert, du treng ikkje bruke den gamle.', t: '06.30' },
+        { who: 'Ingrid Vik', me: true, text: 'Supert, tusen takk.', t: '06.34' },
+      ],
+      sander: [
+        { who: 'Sander Mo', me: false, text: 'Kvar står nøkkelen til lageret?', t: 'i går' },
+        { who: 'Ingrid Vik', me: true, text: 'I skuffa under kassa, bak vekslepengane.', t: 'i går' },
+      ],
+    },
+    q: '', article: null,
+    atab: 'oversikt',
+    posts: [
+      { id: 'p1', title: 'Nye opningstider frå måndag', body: 'Vi opnar 07.00 og stenger 21.00 alle kvardagar. Laurdag som før, 09–18. Skiltet i vindauget er bytta.', time: '07.10', reads: 'Lese av 4 av 7', short: 'Vi opnar 07.00 og stenger 21.00 alle kvardagar.' },
+      { id: 'p2', title: 'Ny leverandør på bakevarer', body: 'Frå og med torsdag kjem brødet frå Skånevik bakeri klokka 07.30. Set det rett i hylla, ikkje på lager.', time: 'i går', reads: 'Lese av 6 av 7', short: 'Brødet kjem 07.30 frå torsdag — rett i hylla.' },
+      { id: 'p3', title: 'Hugs å skrive avvik', body: 'Om noko manglar eller er øydelagt: skriv det i sjekklista med ein gong. Då slepp vi å oppdage det på fredag.', time: 'måndag', reads: 'Lese av 7 av 7', short: 'Skriv avvik med ein gong, ikkje vent til fredag.' },
+    ],
+    cTitle: '', cBody: '',
+    plans: {
+      'Ingrid Vik|2': { name: 'Morgon i krambua', n: 7, live: true },
+      'Ingrid Vik|4': { name: 'Morgon i krambua', n: 7 },
+      'Sander Mo|2': { name: 'Kveld og stenging', n: 6, live: true },
+      'Sander Mo|5': { name: 'Kveld og stenging', n: 6 },
+      'Åse Handeland|2': { name: 'Ferskvare', n: 5, live: true },
+      'Åse Handeland|3': { name: 'Ferskvare', n: 5 },
+      'Jonas Tveit|5': { name: 'Helg — opning', n: 6 },
+      'Jonas Tveit|6': { name: 'Helg — opning', n: 6 },
+      'Mari Låstad|2': { name: 'Kveld og stenging', n: 6, live: true },
+    },
+    builder: false, bPerson: 'Sander Mo', bDay: 4, bName: '', bTasks: [], bNew: '', bEditKey: null,
+  };
+
+  set = (k) => (e) => this.setState({ [k]: e.target.value });
+
+  toggleTask = (id) => () => this.setState((s) => {
+    const done = Object.assign({}, s.done);
+    const times = Object.assign({}, s.times);
+    if (done[id]) { delete done[id]; delete times[id]; }
+    else { done[id] = true; times[id] = '07.' + (10 + (Object.keys(done).length * 7) % 49); }
+    return { done, times };
+  });
+
+  renderVals() {
+    const s = this.state;
+    const doneCount = TASKS.filter((t) => s.done[t.id]).length;
+    const pct = Math.round((doneCount / TASKS.length) * 100);
+    const next = TASKS.find((t) => !s.done[t.id]);
+    const ringOn = 'inset 0 0 0 1px ' + ACC;
+
+    const tasks = TASKS.map((t) => {
+      const d = !!s.done[t.id];
+      const note = s.notes[t.id];
+      return {
+        title: t.title, done: d, open: !d,
+        color: d ? 'rgba(233,233,237,.5)' : '#e9e9ed',
+        meta: d ? ('Kryssa av ' + (s.times[t.id] || '07.00') + ' · Ingrid') : (t.hint || ''),
+        hasNote: !!note, note: note || '',
+        noteLabel: note ? 'Endre avviket' : '+ Skriv avvik',
+        toggle: this.toggleTask(t.id),
+        openNote: () => this.setState({ sheet: t.id, noteDraft: s.notes[t.id] || '' }),
+      };
+    });
+
+    const threadMeta = { alle: { name: 'Krambua — alle', ini: '7', sub: '7 personar' }, kari: { name: 'Kari Nes', ini: 'KN', sub: 'Dagleg leiar' }, sander: { name: 'Sander Mo', ini: 'SM', sub: 'Butikkmedarbeidar' } };
+    const threads = ['alle', 'kari', 'sander'].map((k) => {
+      const list = s.chats[k]; const last = list[list.length - 1];
+      return {
+        name: threadMeta[k].name, ini: threadMeta[k].ini, last: (last.me ? 'Du: ' : '') + last.text,
+        time: last.t, avaColor: k === 'alle' ? ACC : '#d2cefd',
+        open: () => this.setState({ thread: k }),
+      };
+    });
+    const tm = s.thread ? threadMeta[s.thread] : { name: '', ini: '', sub: '' };
+    const msgs = (s.thread ? s.chats[s.thread] : []).map((m) => ({
+      text: m.text, align: m.me ? 'flex-end' : 'flex-start',
+      bg: m.me ? '#423a6a' : '#232532', fg: m.me ? '#f5f4ff' : '#e9e9ed',
+      brr: m.me ? '4px' : '14px', blr: m.me ? '14px' : '4px',
+      meta: m.me ? m.t : (m.who + ' · ' + m.t),
+    }));
+
+    const q = s.q.trim().toLowerCase();
+    const hbGroups = HB.map((g) => ({
+      name: g.name,
+      items: g.items.filter((it) => !q || it.title.toLowerCase().includes(q) || it.sub.toLowerCase().includes(q))
+        .map((it) => Object.assign({}, it, { open: () => this.setState({ article: ARTICLES[it.id] ? it.id : 'r1' }) })),
+    })).filter((g) => g.items.length);
+    const art = s.article ? ARTICLES[s.article] : null;
+
+    const cellFor = (name, i) => {
+      const key = name + '|' + i;
+      const plan = s.plans[key];
+      const isToday = i === 2;
+      return {
+        has: !!plan, empty: !plan,
+        label: plan ? plan.name : '', sub: plan ? (plan.live ? doneCount + '/' + plan.n + ' gjort' : plan.n + ' oppgåver') : '',
+        bg: plan && plan.live ? '#292b31' : '#1f2130',
+        accent: plan && plan.live ? ACC : '#595d6c',
+        fg: plan && isToday ? '#e9e9ed' : 'rgba(233,233,237,.78)',
+        click: () => this.setState({ builder: true, bPerson: name, bDay: i, bEditKey: key, bName: plan ? plan.name : '', bTasks: plan ? (PRESETS[plan.name] || []).slice() : [], bNew: '' }),
+      };
+    };
+    const grid = STAFF.slice(0, 6).map((p) => ({ name: p.name, ini: p.ini, cells: DAYS.map((_, i) => cellFor(p.name, i)) }));
+
+    const liveStaff = [
+      { key: 'Ingrid Vik|2', shift: '06.30–14.00', pct: pct, count: doneCount + '/7' },
+      { key: 'Sander Mo|2', shift: '14.00–21.00', pct: 0, count: '0/6' },
+      { key: 'Åse Handeland|2', shift: '07.00–15.00', pct: 60, count: '3/5' },
+      { key: 'Mari Låstad|2', shift: '15.00–21.00', pct: 0, count: '0/6' },
+    ];
+    const staffToday = liveStaff.map((r) => {
+      const name = r.key.split('|')[0];
+      const person = STAFF.find((x) => x.name === name);
+      const plan = s.plans[r.key];
+      const complete = r.pct === 100;
+      const started = r.pct > 0;
+      return {
+        ini: person.ini, name: name, shift: r.shift, list: plan ? plan.name : '—',
+        pct: r.pct + '%', count: r.count,
+        barColor: complete ? ACC : '#796cbf',
+        status: complete ? 'Ferdig' : (started ? 'I gang' : 'Ikkje starta'),
+        tagBg: complete ? '#423a6a' : (started ? '#3f424d' : 'transparent'),
+        tagFg: complete ? '#f5f4ff' : (started ? '#f3f5fe' : 'rgba(233,233,237,.45)'),
+      };
+    });
+
+    const avvik = TASKS.filter((t) => s.notes[t.id]).map((t) => ({
+      text: s.notes[t.id], meta: 'Ingrid Vik · ' + t.title + ' · i dag',
+    }));
+
+    const navColor = (k) => (s.atab === k ? '#e9e9ed' : 'rgba(233,233,237,.6)');
+    const navBg = (k) => (s.atab === k ? '#292b31' : 'transparent');
+    const tabColor = (k) => (s.tab === k ? ACC : 'rgba(233,233,237,.45)');
+
+    const bTasks = s.bTasks.map((text, i) => ({
+      text: text,
+      remove: () => this.setState((st) => ({ bTasks: st.bTasks.filter((_, j) => j !== i) })),
+    }));
+
+    return {
+      showLogin: !s.logged, showApp: s.logged,
+      u: s.u, p: s.p, setU: this.set('u'), setP: this.set('p'),
+      login: () => this.setState({ logged: true }),
+      logout: () => this.setState({ logged: false, tab: 'heim', thread: null }),
+      nnColor: s.lang === 'nn' ? ACC : 'rgba(233,233,237,.6)', nnRing: s.lang === 'nn' ? ringOn : 'none',
+      nbColor: s.lang === 'nb' ? ACC : 'rgba(233,233,237,.6)', nbRing: s.lang === 'nb' ? ringOn : 'none',
+      setNn: () => this.setState({ lang: 'nn' }), setNb: () => this.setState({ lang: 'nb' }),
+
+      headerTitle: 'Hei, Ingrid', headerSub: 'Onsdag 3. september · vakt 06.30–14.00',
+      isHeim: s.tab === 'heim', isSjekk: s.tab === 'sjekk', isMeld: s.tab === 'meldingar', isHandbok: s.tab === 'handbok',
+      goHeim: () => this.setState({ tab: 'heim' }), goSjekk: () => this.setState({ tab: 'sjekk' }),
+      goMeld: () => this.setState({ tab: 'meldingar', mtab: 'tavle' }),
+      goHandbok: () => this.setState({ tab: 'handbok', article: null }),
+      goRutine: () => this.setState({ tab: 'handbok', article: 'r1' }),
+      openAvvikQuick: () => this.setState({ sheet: 't1', noteDraft: s.notes.t1 || '' }),
+      tHeim: tabColor('heim'), tSjekk: tabColor('sjekk'), tMeld: tabColor('meldingar'), tHb: tabColor('handbok'),
+
+      listName: 'Morgon i krambua', listMeta: 'Laga av Kari · onsdag 3. september',
+      doneOfTotal: doneCount + '/' + TASKS.length, progressPct: pct + '%',
+      nextTaskLabel: next ? ('Neste: ' + next.title) : 'Alt er gjort — fint jobba.',
+      tasks: tasks, allDone: doneCount === TASKS.length, notAllDone: doneCount !== TASKS.length,
+
+      topPosts: s.posts.slice(0, 2), posts: s.posts,
+      hasUnread: true, unread: '3',
+      isTavle: s.tab === 'meldingar' && s.mtab === 'tavle' && !s.thread,
+      isChatList: s.tab === 'meldingar' && s.mtab === 'chat' && !s.thread,
+      noThread: !s.thread,
+      setTavle: () => this.setState({ mtab: 'tavle' }), setChat: () => this.setState({ mtab: 'chat' }),
+      tavleColor: s.mtab === 'tavle' ? ACC : 'rgba(233,233,237,.65)', tavleRing: s.mtab === 'tavle' ? ringOn : 'none',
+      chatColor: s.mtab === 'chat' ? ACC : 'rgba(233,233,237,.65)', chatRing: s.mtab === 'chat' ? ringOn : 'none',
+      threads: threads, threadOpen: !!s.thread, threadName: tm.name, threadIni: tm.ini, threadSub: tm.sub,
+      msgs: msgs, draft: s.draft, setDraft: this.set('draft'),
+      closeThread: () => this.setState({ thread: null }),
+      send: () => { const d = s.draft.trim(); if (!d) return; this.setState((st) => { const chats = Object.assign({}, st.chats); chats[st.thread] = chats[st.thread].concat([{ who: 'Ingrid Vik', me: true, text: d, t: 'no' }]); return { chats: chats, draft: '' }; }); },
+      maybeSend: (e) => { if (e.key === 'Enter') { e.preventDefault(); const d = this.state.draft.trim(); if (!d) return; this.setState((st) => { const chats = Object.assign({}, st.chats); chats[st.thread] = chats[st.thread].concat([{ who: 'Ingrid Vik', me: true, text: d, t: 'no' }]); return { chats: chats, draft: '' }; }); } },
+
+      q: s.q, setQ: this.set('q'), hbGroups: hbGroups, hbEmpty: hbGroups.length === 0,
+      noArticle: !s.article, hasArticle: !!s.article,
+      artKicker: art ? art.kicker : '', artTitle: art ? art.title : '', artMeta: art ? art.meta : '',
+      artSteps: art ? art.steps.map((t, i) => ({ n: i + 1, text: t })) : [],
+      closeArticle: () => this.setState({ article: null }),
+
+      sheetOpen: !!s.sheet, sheetTitle: s.sheet ? (TASKS.find((t) => t.id === s.sheet) || {}).title : '',
+      noteDraft: s.noteDraft, setNoteDraft: this.set('noteDraft'),
+      closeSheet: () => this.setState({ sheet: null, noteDraft: '' }),
+      saveNote: () => this.setState((st) => { const notes = Object.assign({}, st.notes); const v = st.noteDraft.trim(); if (v) notes[st.sheet] = v; else delete notes[st.sheet]; return { notes: notes, sheet: null, noteDraft: '' }; }),
+
+      isOversikt: s.atab === 'oversikt', isLister: s.atab === 'lister', isBeskjed: s.atab === 'beskjed', isAdmHb: s.atab === 'handbok', isTilsette: s.atab === 'tilsette',
+      aOversikt: () => this.setState({ atab: 'oversikt' }), aLister: () => this.setState({ atab: 'lister' }),
+      aBeskjed: () => this.setState({ atab: 'beskjed' }), aHandbok: () => this.setState({ atab: 'handbok' }), aTilsette: () => this.setState({ atab: 'tilsette' }),
+      aoColor: navColor('oversikt'), aoBg: navBg('oversikt'), alColor: navColor('lister'), alBg: navBg('lister'),
+      abColor: navColor('beskjed'), abBg: navBg('beskjed'), ahColor: navColor('handbok'), ahBg: navBg('handbok'),
+      atColor: navColor('tilsette'), atBg: navBg('tilsette'),
+      admDoneStat: (doneCount + 3) + '/25', avvikCount: String(avvik.length), avvik: avvik, noAvvik: avvik.length === 0,
+      staffToday: staffToday, staffAll: STAFF,
+      days: DAYS.map((d, i) => ({ label: d, color: i === 2 ? ACC : DIM })),
+      grid: grid,
+      hbFlat: HB.reduce((acc, g) => acc.concat(g.items), []),
+
+      cTitle: s.cTitle, cBody: s.cBody, setCTitle: this.set('cTitle'), setCBody: this.set('cBody'),
+      sendPost: () => { const t = s.cTitle.trim(); if (!t) return; this.setState((st) => ({ posts: [{ id: 'n' + Date.now(), title: t, body: st.cBody.trim() || 'Ingen tekst.', short: (st.cBody.trim() || 'Ingen tekst.').slice(0, 64), time: 'no', reads: 'Lese av 0 av 7' }].concat(st.posts), cTitle: '', cBody: '' })); },
+
+      builderOpen: s.builder,
+      builderHeading: s.bPerson + ' · ' + DAYS[s.bDay] + ' september',
+      builderPeople: STAFF.slice(0, 6).map((p) => ({ name: p.name, pick: () => this.setState({ bPerson: p.name }), border: s.bPerson === p.name ? ACC : 'rgba(233,233,237,.16)', color: s.bPerson === p.name ? ACC : 'rgba(233,233,237,.75)' })),
+      builderDays: DAYS.map((d, i) => ({ label: d, pick: () => this.setState({ bDay: i }), border: s.bDay === i ? ACC : 'rgba(233,233,237,.16)', color: s.bDay === i ? ACC : 'rgba(233,233,237,.75)' })),
+      bName: s.bName, setBName: this.set('bName'), bNew: s.bNew, setBNew: this.set('bNew'),
+      bTasks: bTasks, bTaskCount: s.bTasks.length + ' stk',
+      addTask: () => { const v = this.state.bNew.trim(); if (!v) return; this.setState((st) => ({ bTasks: st.bTasks.concat([v]), bNew: '' })); },
+      maybeAddTask: (e) => { if (e.key === 'Enter') { e.preventDefault(); const v = this.state.bNew.trim(); if (!v) return; this.setState((st) => ({ bTasks: st.bTasks.concat([v]), bNew: '' })); } },
+      presets: Object.keys(PRESETS).map((k) => ({ name: k, use: () => this.setState({ bName: k, bTasks: PRESETS[k].slice() }) })),
+      openBuilder: () => this.setState({ builder: true, bEditKey: null, bName: '', bTasks: [], bNew: '' }),
+      closeBuilder: () => this.setState({ builder: false }),
+      saveLabel: s.bTasks.length ? ('Lagre lista · ' + s.bTasks.length + ' oppgåver') : 'Lagre lista',
+      saveList: () => this.setState((st) => {
+        if (!st.bTasks.length) return { builder: false };
+        const plans = Object.assign({}, st.plans);
+        plans[st.bPerson + '|' + st.bDay] = { name: st.bName.trim() || 'Ny liste', n: st.bTasks.length, live: st.bDay === 2 };
+        return { plans: plans, builder: false, atab: 'lister' };
+      }),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

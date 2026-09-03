@@ -1,0 +1,25 @@
+{
+  "name": "krambua-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Krambua i Skånevik — tilsett-app (PWA) og leiarvising. Scaffold generated from the Nocturne design handoff.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.2.15",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "@phosphor-icons/react": "2.1.7",
+    "@fontsource/inter": "^5.0.18"
+  },
+  "devDependencies": {
+    "typescript": "5.5.4",
+    "@types/node": "20.14.15",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0"
+  }
+}
