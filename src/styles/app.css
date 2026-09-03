@@ -133,17 +133,11 @@
   flex-direction: column;
   padding: 96px 30px 40px;
 }
-.login-mark {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  border: 1px solid var(--color-accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 26px;
+.login-logo {
+  width: 190px;
+  height: auto;
+  margin-bottom: 30px;
 }
-.login-mark span { width: 14px; height: 14px; border-radius: 3px; background: var(--color-accent); }
 .login-kicker { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 10px; }
 .login-heading { font-size: 30px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 8px; }
 .login-sub { font-size: 14px; color: rgba(233, 233, 237, 0.6); margin-bottom: 28px; }
@@ -388,7 +382,8 @@
 }
 .mgr-nav-item[aria-current="page"] { color: var(--color-text); background: var(--color-neutral-900); }
 .mgr-nav-item:not([aria-current="page"]):hover { background: color-mix(in srgb, var(--color-text) 5%, transparent); }
-.mgr-footer-card { margin-top: auto; background: var(--color-surface); border-radius: 8px; padding: 12px 10px; font-size: 11.5px; }
+.mgr-footer-row { margin-top: auto; display: flex; align-items: center; gap: 8px; }
+.mgr-footer-card { flex: 1; min-width: 0; background: var(--color-surface); border-radius: 8px; padding: 12px 10px; font-size: 11.5px; }
 
 .mgr-main { flex: 1; min-width: 0; padding: 28px 32px 40px; overflow-x: auto; }
 .mgr-kicker { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-accent); margin-bottom: 6px; }
@@ -526,7 +521,8 @@
   .mgr-frame { flex-direction: column; }
   .mgr-sidebar { width: 100%; flex-direction: row; align-items: center; padding: 10px 14px; overflow-x: auto; }
   .mgr-nav { flex-direction: row; }
-  .mgr-footer-card { margin-top: 0; margin-left: auto; white-space: nowrap; }
+  .mgr-footer-row { margin-top: 0; margin-left: auto; }
+  .mgr-footer-card { white-space: nowrap; }
   .mgr-main { padding: 20px 16px 32px; }
   .stat-row { grid-template-columns: repeat(2, 1fr); }
 }
