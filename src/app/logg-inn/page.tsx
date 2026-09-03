@@ -6,6 +6,7 @@ import { useStore } from "@/lib/store";
 import { DEMO_PASSWORD } from "@/lib/mock-data";
 import Splash from "@/components/Splash";
 import type { Lang } from "@/lib/i18n";
+import { BASE_PATH } from "@/lib/base-path";
 
 export default function LoginPage() {
   const { hydrated, currentUser, login, lang, setLang, t } = useStore();
@@ -31,9 +32,8 @@ export default function LoginPage() {
 
   return (
     <form className="login-screen" onSubmit={handleSubmit}>
-      <div className="login-mark">
-        <span />
-      </div>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={`${BASE_PATH}/brand/wordmark.png`} alt="Krambua Bensin &amp; Storkiosk" className="login-logo" />
       <div className="login-kicker">{t("login.kicker")}</div>
       <h1 className="login-heading">{t("login.heading")}</h1>
       <p className="login-sub">{t("login.sub")}</p>
