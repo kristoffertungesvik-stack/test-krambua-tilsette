@@ -14,14 +14,12 @@ export type Lang = "nn" | "nb";
 
 export const strings = {
   // — login —
-  "login.kicker": { nn: "Krambua i Skånevik", nb: "Krambua i Skånevik" },
-  "login.heading": { nn: "God morgon.", nb: "God morgen." },
-  "login.sub": { nn: "Logg på med brukarnamnet du fekk av Kari.", nb: "Logg på med brukernavnet du fikk av Kari." },
+  "login.sub": { nn: "Logg på med brukarnamnet du fekk av admin.", nb: "Logg på med brukernavnet du fikk av admin." },
   "login.username.label": { nn: "Brukarnamn", nb: "Brukernavn" },
   "login.password.label": { nn: "Passord", nb: "Passord" },
   "login.submit": { nn: "Logg inn", nb: "Logg inn" },
   "login.forgot": { nn: "Gløymt passord?", nb: "Glemt passord?" },
-  "login.forgot.body": { nn: "Ta kontakt med Kari for å nullstille passordet.", nb: "Ta kontakt med Kari for å nullstille passordet." },
+  "login.forgot.body": { nn: "Ta kontakt med admin for å nullstille passordet.", nb: "Ta kontakt med admin for å nullstille passordet." },
   "login.error": { nn: "Feil brukarnamn eller passord.", nb: "Feil brukernavn eller passord." },
   "login.lang.caption": { nn: "Språk i appen", nb: "Språk i appen" },
 
@@ -164,4 +162,21 @@ export function audienceLine(count: number, lang: Lang): string {
   return lang === "nb"
     ? `Går til alle ${count} ansatte. Du ser hvem som har lest den.`
     : `Går til alle ${count} tilsette. Du ser kven som har lese han.`;
+}
+
+/**
+ * Time-of-day greeting for the login screen — computed from the visitor's
+ * local clock, not a fixed string:
+ *   06.00–10.59  God morgon. / God morgen.
+ *   11.00–13.59  God føremiddag. / God formiddag.
+ *   14.00–19.29  God ettermiddag.
+ *   19.30–05.59  God kveld.
+ */
+export function greeting(lang: Lang): string {
+  const now = new Date();
+  const minutes = now.getHours() * 60 + now.getMinutes();
+  if (minutes >= 19 * 60 + 30 || minutes < 6 * 60) return "God kveld.";
+  if (minutes < 11 * 60) return lang === "nb" ? "God morgen." : "God morgon.";
+  if (minutes < 14 * 60) return lang === "nb" ? "God formiddag." : "God føremiddag.";
+  return "God ettermiddag.";
 }
