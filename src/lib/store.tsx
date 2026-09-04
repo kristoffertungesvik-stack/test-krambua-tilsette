@@ -95,6 +95,29 @@ const StoreContext = createContext<StoreValue | null>(null);
 const coreDocRef = () => doc(getDb(), "core", "state");
 const handbookColRef = () => collection(getDb(), "handbook");
 
+/**
+ * Firestore rejects any field whose value is `undefined` (unlike `null`,
+ * which is fine) — but this app's own data shapes freely produce
+ * `undefined` for "not set yet" (a task that isn't done has no `doneAt`,
+ * a cleared deviation note becomes `note: undefined`, and so on).
+ * Recursively strip those keys right before every write so that never
+ * trips up a save.
+ */
+function sanitizeForFirestore<T>(value: T): T {
+  if (Array.isArray(value)) {
+    return value.map((v) => sanitizeForFirestore(v)) as unknown as T;
+  }
+  if (value && typeof value === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+      if (v === undefined) continue;
+      out[k] = sanitizeForFirestore(v);
+    }
+    return out as T;
+  }
+  return value;
+}
+
 export function DataProvider({ children }: { children: ReactNode }) {
   const [core, setCore] = useState<CoreData | null>(null);
   const [handbook, setHandbook] = useState<HandbookArticle[] | null>(null);
@@ -126,7 +149,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
             const { handbook: _handbook, ...seedCore } = seed;
             void _handbook;
             try {
-              await setDoc(coreDocRef(), seedCore);
+              await setDoc(coreDocRef(), sanitizeForFirestore(seedCore));
             } catch (err) {
               console.error("Klarte ikkje å så databasen med startdata", err);
               setCore(seedCore);
@@ -147,7 +170,10 @@ export function DataProvider({ children }: { children: ReactNode }) {
             try {
               await Promise.all(
                 seed.handbook.map((article) =>
-                  setDoc(doc(handbookColRef(), article.id), article)
+                  setDoc(
+                    doc(handbookColRef(), article.id),
+                    sanitizeForFirestore(article)
+                  )
                 )
               );
             } catch (err) {
@@ -210,7 +236,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
         const prev = (snap.exists() ? snap.data() : coreRef.current) as CoreData;
         if (!prev) return;
         const next = updater(prev);
-        tx.set(ref, next as DocumentData);
+        tx.set(ref, sanitizeForFirestore(next) as DocumentData);
       }).catch((err) => {
         console.error("Klarte ikkje å lagre endringa i databasen", err);
       });
@@ -451,9 +477,11 @@ export function DataProvider({ children }: { children: ReactNode }) {
   );
 
   const saveHandbookArticle = useCallback((article: HandbookArticle) => {
-    setDoc(doc(handbookColRef(), article.id), article).catch((err) => {
-      console.error("Klarte ikkje å lagre artikkelen i databasen", err);
-    });
+    setDoc(doc(handbookColRef(), article.id), sanitizeForFirestore(article)).catch(
+      (err) => {
+        console.error("Klarte ikkje å lagre artikkelen i databasen", err);
+      }
+    );
   }, []);
 
   const deleteHandbookArticle = useCallback((articleId: string) => {
