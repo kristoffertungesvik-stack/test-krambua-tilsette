@@ -25,7 +25,9 @@ const EMPTY_FORM: ArticleForm = {
   stepsText: "",
 };
 
-const MAX_FILE_BYTES = 1_500_000;
+// Kept comfortably under Firestore's 1 MB per-document limit — the file is
+// stored as base64 (~33% larger) alongside the rest of the article.
+const MAX_FILE_BYTES = 650_000;
 
 export default function HandbokManagerView() {
   const {
@@ -69,7 +71,7 @@ export default function HandbokManagerView() {
     const file = event.target.files?.[0];
     if (!file) return;
     if (file.size > MAX_FILE_BYTES) {
-      setError("Fila er for stor. I testversjonen er maks filstorleik 1,5 MB.");
+      setError("Fila er for stor. Maks filstorleik er 650 KB.");
       event.target.value = "";
       return;
     }
@@ -250,7 +252,7 @@ export default function HandbokManagerView() {
               />
             </Field>
 
-            <Field label="Vedlegg (valfritt, maks 1,5 MB i denne testversjonen)">
+            <Field label="Vedlegg (valfritt, maks 650 KB)">
               <input
                 className="input"
                 type="file"
